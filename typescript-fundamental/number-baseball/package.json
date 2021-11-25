@@ -1,0 +1,9 @@
+{
+  "name": "number-baseball",
+  "version": "1.0.0",
+  "author": "naamukim",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.5.2"
+  }
+}
