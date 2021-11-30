@@ -1,3 +1,4 @@
+"use strict";
 var imgCoords = "0";
 var rsp = {
     ROCK: '0',
@@ -5,7 +6,7 @@ var rsp = {
     PAPER: '-284px'
 };
 var score = {
-    Rock: 0,
+    ROCK: 0,
     SCISSORS: 1,
     PAPER: -1
 };
@@ -16,7 +17,7 @@ document.querySelectorAll('.btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
         var myChoice = this.textContent;
         var myScore = score[myChoice];
-        var computer = score[computerChoice(imgCoords)];
+        var computerScore = score[computerChoice(imgCoords)];
         var diff = myScore - computerScore;
         if (diff === 0) {
             console.log("비겼습니다.");
