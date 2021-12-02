@@ -24,29 +24,27 @@ function computerChoice(imgCoords: RSP[keyof RSP]): keyof RSP {
 
 let interval: number;
 let point: number=0;
-document.querySelectorAll('.btn').forEach((btn)=>{
-    btn.addEventListener('click',function(this: HTMLButtonElement){
+
+document.querySelectorAll('.btn').forEach((btn)=> {
+    btn.addEventListener('click', function (this: HTMLButtonElement) {
         clearInterval(interval);
-        setInterval(intervalMaker,1000);
+        setInterval(intervalMaker, 2000);
         const myChoice = this.textContent as keyof RSP;
         const myScore = score[myChoice];
         const computerScore = score[computerChoice(imgCoords)];
-        const diff = myScore-computerScore;
-        if(diff===0){
+        const diff = myScore - computerScore;
+        if (diff === 0) {
             console.log("비겼습니다.");
-        } else if([-1,2].includes(diff)) {
+        } else if ([-1, 2].includes(diff)) {
             console.log('이겼습니다');
             point++;
         } else {
             console.log('졌습니다');
             point--;
         }
-        (document.querySelector('#point') as HTMLDivElement)!.textContent=`현재 점수는 ${String(point)} 점입니다.`;
+        (document.querySelector('#point') as HTMLDivElement)!.textContent = `현재 점수는 ${point} 점입니다.`;
     })
 });
-
-
-intervalMaker();
 
 
 function intervalMaker(){
@@ -61,6 +59,7 @@ function intervalMaker(){
             if (document.querySelector('#computer')) {
                 (document.querySelector('#computer') as HTMLDivElement).style.background = `url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ${imgCoords} 0`
             }
-        },100
+        },1000
     )
 }
+intervalMaker();

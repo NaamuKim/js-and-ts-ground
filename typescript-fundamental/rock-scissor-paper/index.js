@@ -18,7 +18,7 @@ var point = 0;
 document.querySelectorAll('.btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
         clearInterval(interval);
-        setInterval(intervalMaker, 1000);
+        setInterval(intervalMaker, 2000);
         var myChoice = this.textContent;
         var myScore = score[myChoice];
         var computerScore = score[computerChoice(imgCoords)];
@@ -34,10 +34,9 @@ document.querySelectorAll('.btn').forEach(function (btn) {
             console.log('졌습니다');
             point--;
         }
-        document.querySelector('#point').textContent = "\uD604\uC7AC \uC810\uC218\uB294 ".concat(String(point), " \uC810\uC785\uB2C8\uB2E4.");
+        document.querySelector('#point').textContent = "\uD604\uC7AC \uC810\uC218\uB294 ".concat(point, " \uC810\uC785\uB2C8\uB2E4.");
     });
 });
-intervalMaker();
 function intervalMaker() {
     interval = setInterval(function () {
         if (imgCoords === rsp.ROCK) {
@@ -52,5 +51,6 @@ function intervalMaker() {
         if (document.querySelector('#computer')) {
             document.querySelector('#computer').style.background = "url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ".concat(imgCoords, " 0");
         }
-    }, 100);
+    }, 1000);
 }
+intervalMaker();
