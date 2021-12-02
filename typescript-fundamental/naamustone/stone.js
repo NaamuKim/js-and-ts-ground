@@ -1,4 +1,25 @@
 "use strict";
+var Hero = /** @class */ (function () {
+    function Hero(mine) {
+        this.mine = mine;
+        this.att = Math.ceil(Math.random() * 2);
+        this.hp = Math.ceil(Math.random() * 5) + 25;
+        this.hero = true;
+        this.field = true;
+    }
+    return Hero;
+}());
+var Sub = /** @class */ (function () {
+    function Sub(mine) {
+        this.field = false;
+        this.mine = mine;
+        this.att = Math.ceil(Math.random() * 5);
+        this.hp = Math.ceil(Math.random() * 5);
+        this.cost = Math.floor((this.att + this.hp) / 2);
+    }
+    return Sub;
+}());
+new Hero(true);
 var opponent = {
     hero: document.getElementById('rival-hero'),
     deck: document.getElementById('rival-deck'),
