@@ -44,3 +44,52 @@ var me = {
 };
 var turnButton = document.getElementById('turn-btn');
 var myTurn = true;
+function initiate() {
+    [opponent, me].forEach(function (item) {
+        item.deckData = [];
+        item.heroData = null;
+        item.fieldData = [];
+        item.chosenCard = null;
+        item.chosenCardData = null;
+    });
+    createDeck({ mine: true, count: 5 });
+    createDeck({ mine: false, count: 5 });
+    createHero({ mine: true });
+    createHero({ mine: false });
+    redrawScreen({ mine: true });
+    redrawScreen({ mine: false });
+}
+initiate();
+function createDeck(_a) {
+    var mine = _a.mine, count = _a.count;
+}
+function createHero(_a) {
+    var mine = _a.mine;
+    var player = mine ? me : opponent;
+    player.heroData = new Hero(mine);
+    connectCardDOM({ data: player.heroData, DOM: player.hero, hero: true });
+}
+function connectCardDOM(_a) {
+    var data = _a.data, DOM = _a.DOM, _b = _a.hero, hero = _b === void 0 ? false : _b;
+    var cardEl = document.querySelector('.card hidden .card').cloneNode(true);
+    cardEl.querySelector('.card-att').textContent = String(data.hp);
+    if (hero) {
+        cardEl.querySelector(".card-cost").style.display = 'none';
+        var name_1 = document.createElement('div');
+        name_1.textContent = '영웅';
+        cardEl.appendChild(name_1);
+    }
+    DOM.appendChild(cardEl);
+}
+function redrawScreen(_a) {
+    var mine = _a.mine;
+    var player = mine ? me : opponent;
+    redrawHero(player);
+}
+function redrawHero(target) {
+    if (!target.heroData) {
+        throw new Error('heroData가 없습니다');
+    }
+    target.hero.innerHTML = "";
+    connectCardDOM({ data: target.heroData, DOM: target.hero, hero: true });
+}
