@@ -71,8 +71,9 @@ function createHero(_a) {
 }
 function connectCardDOM(_a) {
     var data = _a.data, DOM = _a.DOM, _b = _a.hero, hero = _b === void 0 ? false : _b;
-    var cardEl = document.querySelector('.card hidden .card').cloneNode(true);
+    var cardEl = document.querySelector('.card-hidden .card').cloneNode(true);
     cardEl.querySelector('.card-att').textContent = String(data.hp);
+    cardEl.querySelector('.card-hp').textContent = String(data.hp);
     if (hero) {
         cardEl.querySelector(".card-cost").style.display = 'none';
         var name_1 = document.createElement('div');

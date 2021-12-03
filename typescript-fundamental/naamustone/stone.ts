@@ -109,8 +109,9 @@ interface A {
 }
 
 function connectCardDOM({data,DOM,hero=false}:A){
-    const cardEl= document.querySelector('.card hidden .card')!.cloneNode(true) as HTMLDivElement;
+    const cardEl= document.querySelector('.card-hidden .card')!.cloneNode(true) as HTMLDivElement;
     cardEl.querySelector('.card-att')!.textContent=String(data.hp);
+    cardEl.querySelector('.card-hp')!.textContent= String(data.hp);
     if(hero){
         (cardEl.querySelector(".card-cost") as HTMLDivElement).style.display='none';
         const name=document.createElement('div');
