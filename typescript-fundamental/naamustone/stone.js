@@ -19,6 +19,12 @@ var Sub = /** @class */ (function () {
     }
     return Sub;
 }());
+function isSub(data) {
+    return !!data.cost;
+}
+function isHero(data) {
+    return !!data.hero;
+}
 new Hero(true);
 var opponent = {
     hero: document.getElementById('rival-hero'),
@@ -77,7 +83,7 @@ function createHero(_a) {
 function connectCardDOM(_a) {
     var data = _a.data, DOM = _a.DOM, _b = _a.hero, hero = _b === void 0 ? false : _b;
     var cardEl = document.querySelector('.card-hidden .card').cloneNode(true);
-    cardEl.querySelector('.card-att').textContent = String(data.hp);
+    cardEl.querySelector('.card-att').textContent = String(data.att);
     cardEl.querySelector('.card-hp').textContent = String(data.hp);
     if (hero) {
         cardEl.querySelector(".card-cost").style.display = 'none';
@@ -86,8 +92,16 @@ function connectCardDOM(_a) {
         cardEl.appendChild(name_1);
     }
     else {
-        cardEl.querySelector('.card-hp').textContent = String(data.hp);
+        cardEl.querySelector('.card-cost').textContent = String(data.cost);
     }
+    cardEl.addEventListener('click', function () {
+        if (isSub(data) && data.mine === myTurn && !data.field) {
+            if (!deckToField({ data: data })) {
+                createDeck({ mine: myTurn, count: 1 });
+            }
+        }
+        turnAction({ cardEl: cardEl, data: data });
+    });
     DOM.appendChild(cardEl);
 }
 function redrawScreen(_a) {
@@ -108,3 +122,84 @@ function redrawDeck(target) {
         connectCardDOM({ data: data, DOM: target.deck, hero: false });
     });
 }
+function redrawField(target) {
+    target.field.innerHTML = "";
+    target.fieldData.forEach(function (data) {
+        connectCardDOM({ data: data, DOM: target.field });
+    });
+}
+function deckToField(_a) {
+    var data = _a.data;
+    var target = myTurn ? me : opponent;
+    var currentCost = Number(target.cost.textContent);
+    if (currentCost < data.cost) {
+        alert('코스트가 모자릅니다.');
+        return true;
+    }
+    data.field = true;
+    var idx = target.deckData.indexOf(data);
+    target.deckData.splice(idx, 1);
+    target.fieldData.push(data);
+    redrawField(target);
+    redrawDeck(target);
+    target.cost.textContent = String(currentCost - data.cost);
+    return false;
+}
+function turnAction(_a) {
+    var cardEl = _a.cardEl, data = _a.data;
+    var team = myTurn ? me : opponent;
+    var enemy = myTurn ? opponent : me;
+    if (cardEl.classList.contains('card-turnover')) {
+        return;
+    }
+    var enemyCard = myTurn ? !data.mine : data.mine;
+    if (enemyCard && team.chosenCardData) {
+        data.hp = data.hp - team.chosenCardData.att;
+        if (data.hp <= 0) {
+            if (isSub(data)) {
+                var index = enemy.fieldData.indexOf(data);
+                enemy.fieldData.splice(index, 1);
+            }
+            else {
+                alert('승리했습니다!');
+                initiate();
+            }
+        }
+        redrawScreen({ mine: !myTurn });
+        if (team.chosenCard) {
+            team.chosenCard.classList.remove('card-selected');
+            team.chosenCard.classList.add('card-turnover');
+        }
+        team.chosenCard = null;
+        team.chosenCardData = null;
+        return;
+    }
+    else if (enemyCard) {
+        return;
+    }
+    if (data.field) { // 카드가 필드에 있으면
+        //  영웅 부모와 필드카드의 부모가 다르기때문에 document에서 모든 .card를 검색한다
+        // 카드.parentNode.querySelectorAll('.card').forEach(function (card) {
+        document.querySelectorAll('.card').forEach(function (card) {
+            card.classList.remove('card-selected');
+        });
+        console.log(cardEl);
+        cardEl.classList.add('card-selected');
+        team.chosenCard = cardEl;
+        team.chosenCardData = data;
+    }
+}
+turnButton.addEventListener('click', function () {
+    var target = myTurn ? me : opponent;
+    document.getElementById('rival').classList.toggle('turn');
+    document.getElementById('my').classList.toggle('turn');
+    redrawField(target);
+    redrawHero(target);
+    myTurn = !myTurn; // 턴을 넘기는 코드
+    if (myTurn) {
+        me.cost.textContent = '10';
+    }
+    else {
+        opponent.cost.textContent = '10';
+    }
+});

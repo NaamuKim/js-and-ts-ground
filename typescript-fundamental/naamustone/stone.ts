@@ -35,6 +35,14 @@ class Sub implements Card{
         this.cost=Math.floor((this.att+ this.hp)/2);
     }
 }
+
+function isSub(data:Card):data is Sub{
+    return !!data.cost;
+}
+function isHero(data:Card): data is Hero {
+    return !!data.hero;
+}
+
 new Hero(true);
 
 interface Player {
@@ -109,13 +117,13 @@ function createHero({mine}:{mine: boolean}){
 
 interface A {
     data: Card,
-    DOM: HTMLDivElement,
+    DOM: HTMLElement,
     hero?:boolean
 }
 
 function connectCardDOM({data,DOM,hero=false}:A){
     const cardEl= document.querySelector('.card-hidden .card')!.cloneNode(true) as HTMLDivElement;
-    cardEl.querySelector('.card-att')!.textContent=String(data.hp);
+    cardEl.querySelector('.card-att')!.textContent=String(data.att);
     cardEl.querySelector('.card-hp')!.textContent= String(data.hp);
     if(hero){
         (cardEl.querySelector(".card-cost") as HTMLDivElement).style.display='none';
@@ -123,8 +131,17 @@ function connectCardDOM({data,DOM,hero=false}:A){
         name.textContent= '영웅';
         cardEl.appendChild(name);
     } else {
-        cardEl.querySelector('.card-hp')!.textContent=String(data.hp);
+        cardEl.querySelector('.card-cost')!.textContent=String(data.cost);
     }
+
+    cardEl.addEventListener('click',()=>{
+        if(isSub(data)&&data.mine===myTurn&&!data.field){
+            if(!deckToField({data})){
+                createDeck({mine: myTurn, count:1})
+            }
+        }
+        turnAction({cardEl,data})
+    });
     DOM.appendChild(cardEl);
 }
 
@@ -146,5 +163,82 @@ function redrawDeck(target: Player){
     target.deckData.forEach((data)=>{
         connectCardDOM({data, DOM: target.deck, hero: false})
     })
-
 }
+
+function redrawField(target: Player){
+    target.field.innerHTML="";
+    target.fieldData.forEach(function(data) {
+        connectCardDOM({data, DOM: target.field});
+    });
+}
+function deckToField({data}: {data:Sub}):boolean {
+    const target =myTurn ? me: opponent;
+    const currentCost =Number(target.cost.textContent);
+    if(currentCost<data.cost){
+        alert('코스트가 모자릅니다.');
+        return true;
+    }
+    data.field=true;
+    const idx=target.deckData.indexOf(data);
+    target.deckData.splice(idx,1);
+    target.fieldData.push(data);
+    redrawField(target);
+    redrawDeck(target);
+    target.cost.textContent=String(currentCost-data.cost);
+    return false;
+}
+
+function turnAction({cardEl,data}:{cardEl:HTMLDivElement,data:Card}){
+    const team = myTurn? me: opponent;
+    const enemy= myTurn ? opponent : me;
+    if(cardEl.classList.contains('card-turnover')){
+        return;
+    }
+    const enemyCard= myTurn ? !data.mine : data.mine;
+    if(enemyCard && team.chosenCardData){
+        data.hp=data.hp-team.chosenCardData.att;
+        if(data.hp<=0) {
+            if(isSub(data)){
+                const index=enemy.fieldData.indexOf(data);
+                enemy.fieldData.splice(index,1);
+            } else {
+                alert('승리했습니다!');
+                initiate();
+            }
+        }
+        redrawScreen({mine: !myTurn});
+        if(team.chosenCard){
+            team.chosenCard.classList.remove('card-selected');
+            team.chosenCard.classList.add('card-turnover');
+        }
+        team.chosenCard = null;
+        team.chosenCardData = null;
+        return;
+    } else if(enemyCard){
+        return;
+    }
+    if (data.field) { // 카드가 필드에 있으면
+        //  영웅 부모와 필드카드의 부모가 다르기때문에 document에서 모든 .card를 검색한다
+        // 카드.parentNode.querySelectorAll('.card').forEach(function (card) {
+        document.querySelectorAll('.card').forEach(function (card) {
+            card.classList.remove('card-selected');
+        });
+        console.log(cardEl);
+        cardEl.classList.add('card-selected');
+        team.chosenCard = cardEl;
+        team.chosenCardData = data;
+    }
+}
+turnButton.addEventListener('click', function() {
+    const target = myTurn ? me : opponent;
+    document.getElementById('rival')!.classList.toggle('turn');
+    document.getElementById('my')!.classList.toggle('turn');
+    redrawField(target);
+    redrawHero(target);
+    myTurn = !myTurn; // 턴을 넘기는 코드
+    if (myTurn) {
+        me.cost.textContent = '10';
+    } else {
+        opponent.cost.textContent = '10';
+    }
+});
