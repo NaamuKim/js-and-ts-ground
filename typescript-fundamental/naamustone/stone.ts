@@ -92,8 +92,13 @@ function initiate(){
     redrawScreen({mine:false});
 }
 initiate();
-function createDeck({mine,count}:{mine: boolean, count: number}){
 
+function createDeck({mine,count}:{mine: boolean, count: number}){
+    const player=mine ? me: opponent;
+    for(let i:number=0; i<count; i++){
+        player.deckData.push(new Sub(mine));
+    }
+    redrawDeck(player);
 }
 
 function createHero({mine}:{mine: boolean}){
@@ -117,6 +122,8 @@ function connectCardDOM({data,DOM,hero=false}:A){
         const name=document.createElement('div');
         name.textContent= '영웅';
         cardEl.appendChild(name);
+    } else {
+        cardEl.querySelector('.card-hp')!.textContent=String(data.hp);
     }
     DOM.appendChild(cardEl);
 }
@@ -132,4 +139,12 @@ function redrawHero(target: Player){
     }
     target.hero.innerHTML="";
     connectCardDOM({data: target.heroData, DOM: target.hero, hero: true})
+}
+
+function redrawDeck(target: Player){
+    target.deck.innerHTML="";
+    target.deckData.forEach((data)=>{
+        connectCardDOM({data, DOM: target.deck, hero: false})
+    })
+
 }

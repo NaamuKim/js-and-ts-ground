@@ -62,6 +62,11 @@ function initiate() {
 initiate();
 function createDeck(_a) {
     var mine = _a.mine, count = _a.count;
+    var player = mine ? me : opponent;
+    for (var i = 0; i < count; i++) {
+        player.deckData.push(new Sub(mine));
+    }
+    redrawDeck(player);
 }
 function createHero(_a) {
     var mine = _a.mine;
@@ -80,6 +85,9 @@ function connectCardDOM(_a) {
         name_1.textContent = '영웅';
         cardEl.appendChild(name_1);
     }
+    else {
+        cardEl.querySelector('.card-hp').textContent = String(data.hp);
+    }
     DOM.appendChild(cardEl);
 }
 function redrawScreen(_a) {
@@ -93,4 +101,10 @@ function redrawHero(target) {
     }
     target.hero.innerHTML = "";
     connectCardDOM({ data: target.heroData, DOM: target.hero, hero: true });
+}
+function redrawDeck(target) {
+    target.deck.innerHTML = "";
+    target.deckData.forEach(function (data) {
+        connectCardDOM({ data: data, DOM: target.deck, hero: false });
+    });
 }
