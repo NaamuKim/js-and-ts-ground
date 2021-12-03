@@ -42,3 +42,5 @@ var me = {
     chosenCard: null,
     chosenCardData: null
 };
+var turnButton = document.getElementById('turn-btn');
+var myTurn = true;

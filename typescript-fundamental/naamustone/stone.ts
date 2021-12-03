@@ -10,9 +10,9 @@ interface Card {
 class Hero implements Card{
     public att: number;
     public hp: number;
-    private hero: boolean;
+    public hero: boolean;
     public mine: boolean;
-    private field: boolean;
+    public field: boolean;
     constructor(mine:boolean) {
         this.mine =mine;
         this.att=Math.ceil(Math.random()*2);
@@ -49,11 +49,11 @@ interface Player {
     chosenCardData: Card | null
 }
 
-const opponent={
-    hero: document.getElementById('rival-hero'),
-    deck: document.getElementById('rival-deck'),
-    field: document.getElementById('rival-cards'),
-    cost: document.getElementById('rival-cost'),
+const opponent: Player={
+    hero: document.getElementById('rival-hero')as HTMLDivElement,
+    deck: document.getElementById('rival-deck')as HTMLDivElement,
+    field: document.getElementById('rival-cards')as HTMLDivElement,
+    cost: document.getElementById('rival-cost')as HTMLDivElement,
     deckData:[],
     heroData: null,
     fieldData: [],
@@ -61,14 +61,17 @@ const opponent={
     chosenCardData: null,
 }
 
-const me={
-    hero: document.getElementById('my-hero'),
-    deck: document.getElementById('my-deck'),
-    field: document.getElementById('my-cards'),
-    cost: document.getElementById('my-cost'),
+const me: Player={
+    hero: document.getElementById('my-hero')as HTMLDivElement,
+    deck: document.getElementById('my-deck')as HTMLDivElement,
+    field: document.getElementById('my-cards')as HTMLDivElement,
+    cost: document.getElementById('my-cost')as HTMLDivElement,
     deckData:[],
     heroData: null,
     fieldData: [],
     chosenCard:null,
     chosenCardData: null,
 }
+
+const turnButton = document.getElementById('turn-btn') as HTMLButtonElement;
+let myTurn = true;
