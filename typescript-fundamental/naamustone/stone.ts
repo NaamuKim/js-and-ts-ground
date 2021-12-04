@@ -1,11 +1,4 @@
-interface Card {
-    att: number;
-    hp: number;
-    mine: boolean;
-    field: boolean
-    cost?: number;
-    hero?: boolean;
-}
+import {Card, Player} from "./types";
 
 class Hero implements Card{
     public att: number;
@@ -45,17 +38,7 @@ function isHero(data:Card): data is Hero {
 
 new Hero(true);
 
-interface Player {
-    hero: HTMLDivElement
-    deck: HTMLDivElement
-    field: HTMLDivElement
-    cost: HTMLDivElement
-    deckData: Card[]
-    heroData: Card | null
-    fieldData: Card[]
-    chosenCard: HTMLDivElement | null
-    chosenCardData: Card | null
-}
+
 
 const opponent: Player={
     hero: document.getElementById('rival-hero')as HTMLDivElement,
@@ -229,6 +212,7 @@ function turnAction({cardEl,data}:{cardEl:HTMLDivElement,data:Card}){
         team.chosenCardData = data;
     }
 }
+
 turnButton.addEventListener('click', function() {
     const target = myTurn ? me : opponent;
     document.getElementById('rival')!.classList.toggle('turn');
