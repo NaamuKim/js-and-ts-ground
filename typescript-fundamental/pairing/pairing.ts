@@ -44,7 +44,7 @@ function setCard(horizontal:number, vertical:number){
                         clickCard=[];
                         if(completedCard.length===horizontal*vertical){
                             const endTime: number= new Date().getTime();
-                            alert(`축하합니다. ${endTime-startTime!.getTime()}`);
+                            alert(`축하합니다. ${(endTime-startTime!.getTime())/1000}초 걸렸습니다`);
                             (document.querySelector('#wrapper')as HTMLDivElement).innerHTML='';
                             colorCandidate=colors.slice();
                             color = [];

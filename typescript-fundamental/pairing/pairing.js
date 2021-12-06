@@ -41,7 +41,7 @@ function setCard(horizontal, vertical) {
                         clickCard = [];
                         if (completedCard.length === horizontal * vertical) {
                             var endTime = new Date().getTime();
-                            alert("\uCD95\uD558\uD569\uB2C8\uB2E4. ".concat(endTime - startTime.getTime()));
+                            alert("\uCD95\uD558\uD569\uB2C8\uB2E4. ".concat((endTime - startTime.getTime()) / 1000, "\uCD08 \uAC78\uB838\uC2B5\uB2C8\uB2E4"));
                             document.querySelector('#wrapper').innerHTML = '';
                             colorCandidate = colors.slice();
                             color = [];
