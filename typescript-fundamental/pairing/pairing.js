@@ -6,6 +6,7 @@ var colorCandidate = colors.slice();
 var color = [];
 var clickFlag = true;
 var clickCard = [];
+var completedCard = [];
 var startTime;
 function shuffle() {
     for (var i = 0; colorCandidate.length > 0; i += 1) {
@@ -14,7 +15,7 @@ function shuffle() {
 }
 function setCard(horizontal, vertical) {
     clickFlag = false;
-    for (var i = 0; i < horizontal * vertical; i++) {
+    var _loop_1 = function (i) {
         var card = document.createElement('div');
         card.className = 'card';
         var cardInner = document.createElement('div');
@@ -27,7 +28,45 @@ function setCard(horizontal, vertical) {
         cardInner.appendChild(cardFront);
         cardInner.appendChild(cardBack);
         card.appendChild(cardInner);
+        card.addEventListener('click', function () {
+            if (clickFlag && !completedCard.includes(this)) {
+                card.classList.toggle('flipped');
+                clickCard.push(this);
+                if (clickCard.length === 2) {
+                    var firstBackGround = clickCard[0].querySelector('.card-back').style.backgroundColor;
+                    var secondBackGround = clickCard[1].querySelector('.card-back').style.backgroundColor;
+                    if (firstBackGround === secondBackGround) {
+                        completedCard.push(clickCard[0]);
+                        completedCard.push(clickCard[1]);
+                        clickCard = [];
+                        if (completedCard.length === horizontal * vertical) {
+                            var endTime = new Date().getTime();
+                            alert("\uCD95\uD558\uD569\uB2C8\uB2E4. ".concat(endTime - startTime.getTime()));
+                            document.querySelector('#wrapper').innerHTML = '';
+                            colorCandidate = colors.slice();
+                            color = [];
+                            completedCard = [];
+                            startTime = null;
+                            shuffle();
+                            setCard(horizontal, vertical);
+                        }
+                    }
+                    else {
+                        clickFlag = false;
+                        setTimeout(function () {
+                            clickCard[0].classList.remove('flipped');
+                            clickCard[1].classList.remove('flipped');
+                            clickFlag = true;
+                            clickCard = [];
+                        }, 1000);
+                    }
+                }
+            }
+        });
         document.querySelector('#wrapper').appendChild(card);
+    };
+    for (var i = 0; i < horizontal * vertical; i++) {
+        _loop_1(i);
     }
     document.querySelectorAll('.card').forEach(function (card, index) {
         setTimeout(function () {
@@ -36,11 +75,11 @@ function setCard(horizontal, vertical) {
     });
     setTimeout(function () {
         document.querySelectorAll('.card').forEach(function (card, index) {
-            card.classList.add('flipped');
+            card.classList.remove('flipped');
         });
         clickFlag = true;
         startTime = new Date();
-    }, 5000);
+    }, 3000);
 }
 shuffle();
 setCard(horizontal, vertical);

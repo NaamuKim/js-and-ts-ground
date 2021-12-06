@@ -6,7 +6,8 @@ let colorCandidate: string[]= colors.slice();
 let color: string[] = [];
 let clickFlag :boolean = true;
 let clickCard: HTMLDivElement[]= [];
-let startTime: Date;
+let completedCard: HTMLDivElement[] =[];
+let startTime: Date | null;
 
 function shuffle(): void {
     for(let i: number=0; colorCandidate.length>0; i+=1){
@@ -29,6 +30,42 @@ function setCard(horizontal:number, vertical:number){
         cardInner.appendChild(cardFront);
         cardInner.appendChild(cardBack);
         card.appendChild(cardInner);
+
+        card.addEventListener('click',function(this:HTMLDivElement) {
+            if(clickFlag && !completedCard.includes(this)){
+                card.classList.toggle('flipped');
+                clickCard.push(this);
+                if(clickCard.length===2){
+                    const firstBackGround: string =(clickCard[0].querySelector('.card-back') as HTMLDivElement).style.backgroundColor
+                    const secondBackGround:string=(clickCard[1].querySelector('.card-back') as HTMLDivElement).style.backgroundColor
+                    if(firstBackGround===secondBackGround) {
+                        completedCard.push(clickCard[0]);
+                        completedCard.push(clickCard[1]);
+                        clickCard=[];
+                        if(completedCard.length===horizontal*vertical){
+                            const endTime: number= new Date().getTime();
+                            alert(`축하합니다. ${endTime-startTime!.getTime()}`);
+                            (document.querySelector('#wrapper')as HTMLDivElement).innerHTML='';
+                            colorCandidate=colors.slice();
+                            color = [];
+                            completedCard = [];
+                            startTime= null;
+                            shuffle();
+                            setCard(horizontal,vertical);
+                        }
+                    } else {
+                        clickFlag=false;
+                        setTimeout(()=>{
+                            clickCard[0].classList.remove('flipped');
+                            clickCard[1].classList.remove('flipped');
+                            clickFlag=true;
+                            clickCard=[];
+                        },1000);
+                    }
+                }
+            }
+        });
+
         (document.querySelector('#wrapper')as HTMLDivElement).appendChild(card);
     }
     document.querySelectorAll('.card').forEach((card,index)=>{
@@ -38,11 +75,11 @@ function setCard(horizontal:number, vertical:number){
     })
         setTimeout(()=>{
             document.querySelectorAll('.card').forEach((card,index)=>{
-                card.classList.add('flipped');
+                card.classList.remove('flipped');
             });
             clickFlag=true;
             startTime=new Date();
-        }, 5000)
+        }, 3000)
 
 }
 
