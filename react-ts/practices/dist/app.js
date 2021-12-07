@@ -9,6 +9,17 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./Try.tsx":
+/*!*****************!*\
+  !*** ./Try.tsx ***!
+  \*****************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+eval("\r\nexports.__esModule = true;\r\nvar React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar Try = function (_a) {\r\n    var tryInfo = _a.tryInfo;\r\n    return (React.createElement(\"li\", null,\r\n        React.createElement(\"div\", null, tryInfo[\"try\"]),\r\n        React.createElement(\"div\", null, tryInfo.result)));\r\n};\r\nexports[\"default\"] = Try;\r\n\n\n//# sourceURL=webpack://practices/./Try.tsx?");
+
+/***/ }),
+
 /***/ "./client.tsx":
 /*!********************!*\
   !*** ./client.tsx ***!
@@ -16,18 +27,18 @@
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
-eval("\r\nexports.__esModule = true;\r\nvar React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar ReactDOM = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\r\nvar root_1 = __webpack_require__(/*! react-hot-loader/root */ \"./node_modules/react-hot-loader/root.js\");\r\nvar word_relay_1 = __webpack_require__(/*! ./word-relay */ \"./word-relay.tsx\");\r\nvar Hot = (0, root_1.hot)(word_relay_1[\"default\"]);\r\nReactDOM.render(React.createElement(word_relay_1[\"default\"], null), document.querySelector('#root'));\r\n\n\n//# sourceURL=webpack://practices/./client.tsx?");
+eval("\r\nexports.__esModule = true;\r\nvar React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar ReactDOM = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\r\nvar root_1 = __webpack_require__(/*! react-hot-loader/root */ \"./node_modules/react-hot-loader/root.js\");\r\nvar number_baseball_1 = __webpack_require__(/*! ./number-baseball */ \"./number-baseball.tsx\");\r\nvar Hot = (0, root_1.hot)(number_baseball_1[\"default\"]);\r\nReactDOM.render(React.createElement(number_baseball_1[\"default\"], null), document.querySelector('#root'));\r\n\n\n//# sourceURL=webpack://practices/./client.tsx?");
 
 /***/ }),
 
-/***/ "./word-relay.tsx":
-/*!************************!*\
-  !*** ./word-relay.tsx ***!
-  \************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ "./number-baseball.tsx":
+/*!*****************************!*\
+  !*** ./number-baseball.tsx ***!
+  \*****************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
-eval("\r\nexports.__esModule = true;\r\nvar React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar react_1 = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar WordRelay = function () {\r\n    var _a = (0, react_1.useState)(\"나무\"), word = _a[0], setWord = _a[1];\r\n    var _b = (0, react_1.useState)(\"\"), value = _b[0], setValue = _b[1];\r\n    var _c = (0, react_1.useState)(\"\"), result = _c[0], setResult = _c[1];\r\n    var inputEl = (0, react_1.useRef)(null);\r\n    var onChangeWord = (0, react_1.useCallback)(function (e) {\r\n        setValue(e.currentTarget.value);\r\n    }, []);\r\n    var onSubmitForm = (0, react_1.useCallback)(function (e) {\r\n        e.preventDefault();\r\n        var input = inputEl.current;\r\n        if (word[word.length - 1] === value[0] && !value.split(\"\").find(function (e) { return e === \" \"; })) {\r\n            setResult('딩동댕');\r\n            setWord(value);\r\n            setValue(\"\");\r\n            if (input) {\r\n                input.focus();\r\n            }\r\n        }\r\n        else if (value.split(\"\").find(function (e) { return e === \" \"; })) {\r\n            setResult(\"띄어쓰기는 제외하고 해주세요\");\r\n            setValue(\"\");\r\n            if (input) {\r\n                input.focus();\r\n            }\r\n        }\r\n        else {\r\n            setResult(\"땡\");\r\n            setValue(\"\");\r\n            if (input) {\r\n                input.focus();\r\n            }\r\n        }\r\n    }, [value]);\r\n    return (React.createElement(React.Fragment, null,\r\n        React.createElement(\"div\", null, word),\r\n        React.createElement(\"form\", { onSubmit: onSubmitForm },\r\n            React.createElement(\"input\", { ref: inputEl, value: value, onChange: onChangeWord }),\r\n            React.createElement(\"button\", null, \"\\uC785\\uB825!\")),\r\n        React.createElement(\"div\", null, result)));\r\n};\r\nexports[\"default\"] = WordRelay;\r\n\n\n//# sourceURL=webpack://practices/./word-relay.tsx?");
+eval("\r\nvar __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {\r\n    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {\r\n        if (ar || !(i in from)) {\r\n            if (!ar) ar = Array.prototype.slice.call(from, 0, i);\r\n            ar[i] = from[i];\r\n        }\r\n    }\r\n    return to.concat(ar || Array.prototype.slice.call(from));\r\n};\r\nexports.__esModule = true;\r\nvar React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar react_1 = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar Try_1 = __webpack_require__(/*! ./Try */ \"./Try.tsx\");\r\nvar getNumbers = function () {\r\n    var candidates = [1, 2, 3, 4, 5, 6, 7, 8, 9];\r\n    var array = [];\r\n    for (var i = 0; i < 4; i += 1) {\r\n        var chosen = candidates.splice(Math.floor(Math.random() * (9 - i)), 1)[0];\r\n        array.push(chosen);\r\n    }\r\n    return array;\r\n};\r\nvar NumberBaseball = function () {\r\n    var _a = (0, react_1.useState)(getNumbers()), answer = _a[0], setAnswer = _a[1];\r\n    var _b = (0, react_1.useState)(''), value = _b[0], setValue = _b[1];\r\n    var _c = (0, react_1.useState)(''), result = _c[0], setResult = _c[1];\r\n    var _d = (0, react_1.useState)([]), tries = _d[0], setTries = _d[1];\r\n    var inputEl = (0, react_1.useRef)(null);\r\n    var onSubmitForm = (0, react_1.useCallback)(function (e) {\r\n        e.preventDefault();\r\n        var input = inputEl.current;\r\n        if (value === answer.join('')) {\r\n            setTries(function (t) { return (__spreadArray(__spreadArray([], t, true), [\r\n                {\r\n                    \"try\": value,\r\n                    result: '홈런'\r\n                }\r\n            ], false)); });\r\n            setResult('홈런');\r\n            setValue('');\r\n            setAnswer(getNumbers());\r\n            setTries([]);\r\n            if (input) {\r\n                input.focus();\r\n            }\r\n        }\r\n        else {\r\n            var answerArray = value.split('').map(function (v) { return parseInt(v); });\r\n            var strike_1 = 0;\r\n            var ball_1 = 0;\r\n            if (tries.length >= 9) {\r\n                setResult(\"\\uC2E4\\uD328 \\uB2F5\\uC740 \".concat(answer.join(','), \"\\uC785\\uB2C8\\uB2E4!\"));\r\n                alert('다시 시작합니다');\r\n                setValue('');\r\n                setAnswer(getNumbers());\r\n                setTries([]);\r\n                if (input) {\r\n                    input.focus();\r\n                }\r\n            }\r\n            else {\r\n                console.log('답은', answer.join(''));\r\n                for (var i = 0; i < 4; i += 1) {\r\n                    if (answerArray[i] === answer[i]) {\r\n                        strike_1 += 1;\r\n                    }\r\n                    else if (answer.includes(answerArray[i])) {\r\n                        ball_1 += 1;\r\n                    }\r\n                }\r\n                setTries(function (t) { return (__spreadArray(__spreadArray([], t, true), [\r\n                    {\r\n                        \"try\": value,\r\n                        result: \"\".concat(strike_1, \" \\uC2A4\\uD2B8\\uB77C\\uC774\\uD06C, \").concat(ball_1, \" \\uBCFC\\uC785\\uB2C8\\uB2E4.\")\r\n                    }\r\n                ], false)); });\r\n                setValue('');\r\n                if (input) {\r\n                    input.focus();\r\n                }\r\n            }\r\n        }\r\n    }, [value, answer]);\r\n    return (React.createElement(React.Fragment, null,\r\n        React.createElement(\"h1\", null, result),\r\n        React.createElement(\"form\", { onSubmit: onSubmitForm },\r\n            React.createElement(\"input\", { ref: inputEl, maxLength: 4, value: value, onChange: function (e) { return setValue(e.target.value); } }),\r\n            React.createElement(\"button\", null, \"\\uC785\\uB825!\")),\r\n        React.createElement(\"div\", null,\r\n            \"\\uC2DC\\uB3C4: \",\r\n            tries.length),\r\n        React.createElement(\"ul\", null, tries.map(function (v, i) { return (React.createElement(Try_1[\"default\"], { key: \"\".concat(i + 1, \"\\uCC28 \\uC2DC\\uB3C4: \").concat(v[\"try\"]), tryInfo: v })); }))));\r\n};\r\nexports[\"default\"] = NumberBaseball;\r\n\n\n//# sourceURL=webpack://practices/./number-baseball.tsx?");
 
 /***/ }),
 
@@ -182,7 +193,7 @@ eval("\n\nif (false) {} else {\n  module.exports = __webpack_require__(/*! ./cjs
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
