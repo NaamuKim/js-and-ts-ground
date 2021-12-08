@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root'
-import NumberBaseball from './number-baseball'
+import Response from './Response'
 
-const Hot= hot(NumberBaseball);
+const Hot= hot(Response);
 
-ReactDOM.render(<NumberBaseball/>, document.querySelector('#root'));
+ReactDOM.render(<Response/>, document.querySelector('#root'));
