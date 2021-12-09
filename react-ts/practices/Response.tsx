@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useState, useRef, useCallback} from "react";
 
-const Response = useCallback(() => {
+const Response = ()=> {
     const [state, setState] = useState('waiting');
     const [message, setMessage] = useState('클릭해서 시작하세요.');
     const [result, setResult] = useState<number[]>([]);
