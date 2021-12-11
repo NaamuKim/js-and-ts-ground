@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect,useCallback, useReducer, Reducer} from "react";
+import {useEffect, useCallback, useReducer, Reducer} from "react";
 import Table from "./Table"
 
 interface ReducerState {
@@ -9,7 +9,7 @@ interface ReducerState {
     recentCell: [number, number]
 }
 
-const initialState={
+const initialState:ReducerState={
     winner: '',
     turn: 'O',
     tableData: [
@@ -25,15 +25,24 @@ export const CLICK_CELL = 'CLICK_CELL' as const;
 export const CHANGE_TURN = 'CHANGE_TURN' as const;
 export const RESET_GAME = 'RESET_GAME' as const;
 
+
+
 interface SetWinnerAction {
     type: typeof SET_WINNER;
     winner: 'O' | 'X';
+}
+const setWinner = (winner: 'O'| 'X') :SetWinnerAction =>{
+    return {type: SET_WINNER, winner};
 }
 
 interface ClickCellAction {
     type: typeof CLICK_CELL;
     row: number;
     cell: number;
+}
+
+const clickCell= (row: number, cell: number) :ClickCellAction =>{
+    return {type: CLICK_CELL, row,cell};
 }
 
 interface ChangeTurnAction {
@@ -87,6 +96,66 @@ const reducer = (state: ReducerState, action: ReducerActions): ReducerState =>{
 }
 
 const TicTacToe = () =>{
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const {tableData, turn, winner, recentCell} = state;
+
+    useEffect(()=>{
+        const [row, cell] =recentCell;
+        if(row<0){
+            return;
+        }
+        let full = false;
+        if(tableData[row][0]===turn &&
+            tableData[row][1]===turn &&
+            tableData[row][2]===turn ){
+            full=true;
+        }
+        if(
+            tableData[cell][0]===turn &&
+            tableData[cell][1]===turn &&
+            tableData[cell][2]===turn
+        ) {
+            full=true;
+        }
+        if (
+            tableData[0][0]=== turn &&
+            tableData[1][1] === turn &&
+            tableData[2][2] === turn
+        ) {
+            full = true;
+        }
+
+        if(
+            tableData[0][2] === turn &&
+            tableData[1][1] === turn &&
+            tableData[2][0] === turn
+        ) {
+            full=true;
+        }
+        if(full){
+            dispatch({type: SET_WINNER, winner: turn});
+            dispatch({type:RESET_GAME})
+        } else {
+            let all=true;
+            tableData.forEach((row)=>{
+                row.forEach((cell)=>{
+                    if(!cell){
+                        all=false;
+                    }
+                })
+            })
+            if(all){
+                dispatch({type:RESET_GAME})
+            } else{
+                dispatch({type:CHANGE_TURN})
+            }
+        }
+    },[recentCell]);
+
+    const onClickTable = useCallback(()=>{
+        dispatch(setWinner('O'))
+    },[]);
+
     return (
         <>
         <Table onClick={onClickTable} tableData={tableData} dispatch={dispatch}/>
@@ -94,3 +163,5 @@ const TicTacToe = () =>{
         </>
     )
 }
+
+export default TicTacToe;
