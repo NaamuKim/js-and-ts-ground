@@ -41,8 +41,51 @@ interface ChangeTurnAction {
 }
 
 interface ResetGameAction {
-    type: typeof CHANGE_TURN;
+    type: typeof RESET_GAME;
 }
+
+type ReducerActions = SetWinnerAction | ClickCellAction | ChangeTurnAction | ResetGameAction;
+
+const reducer = (state: ReducerState, action: ReducerActions): ReducerState =>{
+    switch (action.type) {
+        case SET_WINNER:
+            return {
+                ...state,
+                winner: action.winner,
+            };
+            case CLICK_CELL: {
+                const tableData = [...state.tableData];
+                tableData[action.row] = [...tableData[action.row]];
+                tableData[action.row][action.cell]=state.turn;
+                return {
+                    ...state,
+                    tableData,
+                    recentCell: [action.row, action.cell]
+                };
+        }
+        case CHANGE_TURN: {
+            return {
+                ...state,
+                turn: state.turn ==='O' ? 'X' : 'O',
+            }
+        }
+        case RESET_GAME: {
+            return {
+                ...state,
+                turn : 'O',
+                tableData: [
+                    ['', '', ''],
+                    ['', '', ''],
+                    ['', '', ''],
+                ],
+                recentCell: [-1, -1],
+            }
+        }
+        default:
+            return state;
+    }
+}
+
 const TicTacToe = () =>{
     return (
         <>
