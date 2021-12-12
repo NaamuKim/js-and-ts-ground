@@ -9,14 +9,47 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./RSP.tsx":
-/*!*****************!*\
-  !*** ./RSP.tsx ***!
-  \*****************/
+/***/ "./Table.tsx":
+/*!*******************!*\
+  !*** ./Table.tsx ***!
+  \*******************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
-eval("\r\nexports.__esModule = true;\r\nvar React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar react_1 = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar rspCoords = {\r\n    바위: '0',\r\n    가위: '-142px',\r\n    보: '-284px'\r\n};\r\nvar scores = {\r\n    가위: 1,\r\n    바위: 0,\r\n    보: -1\r\n};\r\nvar computerChoice = function (imgCoords) {\r\n    return Object.keys(rspCoords).find(function (k) {\r\n        return rspCoords[k] === imgCoords;\r\n    });\r\n};\r\nvar RSP = function () {\r\n    var _a = (0, react_1.useState)(''), result = _a[0], setResult = _a[1];\r\n    var _b = (0, react_1.useState)(rspCoords.바위), imgCoord = _b[0], setImgCoord = _b[1];\r\n    var _c = (0, react_1.useState)(0), score = _c[0], setScore = _c[1];\r\n    var interval = (0, react_1.useRef)();\r\n    var clicked = (0, react_1.useRef)(false);\r\n    (0, react_1.useEffect)(function () {\r\n        console.log('다시 실행');\r\n        interval.current = window.setInterval(changeHand, 100);\r\n        return function () {\r\n            console.log('종료');\r\n            clearInterval(interval.current);\r\n        };\r\n    }, [imgCoord]);\r\n    var changeHand = function () {\r\n        if (imgCoord === rspCoords.바위) {\r\n            setImgCoord(rspCoords.가위);\r\n        }\r\n        else if (imgCoord === rspCoords.가위) {\r\n            setImgCoord(rspCoords.보);\r\n        }\r\n        else if (imgCoord === rspCoords.보) {\r\n            setImgCoord(rspCoords.바위);\r\n        }\r\n    };\r\n    var onClickBtn = function (choice) { return function () {\r\n        if (!clicked.current) {\r\n            clearInterval(interval.current);\r\n            clicked.current = true;\r\n            var myScore = scores[choice];\r\n            var cpuScore = scores[computerChoice(imgCoord)];\r\n            var diff = myScore - cpuScore;\r\n            if (diff === 0) {\r\n                setResult('비겼습니다!');\r\n            }\r\n            else if ([-1, 2].includes(diff)) {\r\n                setResult('이겼습니다!');\r\n                setScore(function (prevScore) { return prevScore + 1; });\r\n            }\r\n            else {\r\n                setResult('졌습니다!');\r\n                setScore(function (prevScore) { return prevScore - 1; });\r\n            }\r\n            setTimeout(function () {\r\n                interval.current = window.setInterval(changeHand, 100);\r\n                clicked.current = false;\r\n            }, 1000);\r\n        }\r\n    }; };\r\n    return (React.createElement(React.Fragment, null,\r\n        React.createElement(\"div\", { id: \"computer\", style: { background: \"url(https://en.pimg.jp/023/182/267/1/23182267.jpg) \".concat(imgCoord, \" 0\") } }),\r\n        React.createElement(\"div\", null,\r\n            React.createElement(\"button\", { id: \"rock\", className: \"btn\", onClick: onClickBtn('바위') }, \"\\uBC14\\uC704\"),\r\n            React.createElement(\"button\", { id: \"scissor\", className: \"btn\", onClick: onClickBtn('가위') }, \"\\uAC00\\uC704\"),\r\n            React.createElement(\"button\", { id: \"paper\", className: \"btn\", onClick: onClickBtn('보') }, \"\\uBCF4\")),\r\n        React.createElement(\"div\", null, result),\r\n        React.createElement(\"div\", null,\r\n            \"\\uD604\\uC7AC \",\r\n            score,\r\n            \"\\uC810\")));\r\n};\r\nexports[\"default\"] = RSP;\r\n\n\n//# sourceURL=webpack://practices/./RSP.tsx?");
+eval("\r\nexports.__esModule = true;\r\nvar React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar react_1 = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar Tr_1 = __webpack_require__(/*! ./Tr */ \"./Tr.tsx\");\r\nvar Table = function (_a) {\r\n    var tableData = _a.tableData, dispatch = _a.dispatch;\r\n    return (React.createElement(\"table\", null, Array(tableData.length).fill(null).map(function (tr, i) { return ((0, react_1.useMemo)(function () { return React.createElement(Tr_1[\"default\"], { key: i, dispatch: dispatch, rowIndex: i, rowData: tableData[i] }); }, [tableData[i]])); })));\r\n};\r\nexports[\"default\"] = Table;\r\n\n\n//# sourceURL=webpack://practices/./Table.tsx?");
+
+/***/ }),
+
+/***/ "./Td.tsx":
+/*!****************!*\
+  !*** ./Td.tsx ***!
+  \****************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+eval("\r\nexports.__esModule = true;\r\nvar React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar react_1 = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar TicTacToe_1 = __webpack_require__(/*! ./TicTacToe */ \"./TicTacToe.tsx\");\r\nvar Td = function (_a) {\r\n    var rowIndex = _a.rowIndex, cellIndex = _a.cellIndex, dispatch = _a.dispatch, cellData = _a.cellData;\r\n    var onClickTd = (0, react_1.useCallback)(function () {\r\n        if (cellData) {\r\n            return;\r\n        }\r\n        dispatch({ type: TicTacToe_1.CLICK_CELL, row: rowIndex, cell: cellIndex });\r\n    }, [cellData]);\r\n    return (React.createElement(\"td\", { onClick: onClickTd }, cellData));\r\n};\r\nexports[\"default\"] = Td;\r\n\n\n//# sourceURL=webpack://practices/./Td.tsx?");
+
+/***/ }),
+
+/***/ "./TicTacToe.tsx":
+/*!***********************!*\
+  !*** ./TicTacToe.tsx ***!
+  \***********************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nvar __assign = (this && this.__assign) || function () {\r\n    __assign = Object.assign || function(t) {\r\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\r\n            s = arguments[i];\r\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\r\n                t[p] = s[p];\r\n        }\r\n        return t;\r\n    };\r\n    return __assign.apply(this, arguments);\r\n};\r\nvar __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {\r\n    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {\r\n        if (ar || !(i in from)) {\r\n            if (!ar) ar = Array.prototype.slice.call(from, 0, i);\r\n            ar[i] = from[i];\r\n        }\r\n    }\r\n    return to.concat(ar || Array.prototype.slice.call(from));\r\n};\r\nexports.__esModule = true;\r\nexports.RESET_GAME = exports.CHANGE_TURN = exports.CLICK_CELL = exports.SET_WINNER = void 0;\r\nvar React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar react_1 = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar Table_1 = __webpack_require__(/*! ./Table */ \"./Table.tsx\");\r\nvar initialState = {\r\n    winner: '',\r\n    turn: 'O',\r\n    tableData: [\r\n        ['', '', ''],\r\n        ['', '', ''],\r\n        ['', '', ''],\r\n    ],\r\n    recentCell: [-1, -1]\r\n};\r\nexports.SET_WINNER = 'SET_WINNER';\r\nexports.CLICK_CELL = 'CLICK_CELL';\r\nexports.CHANGE_TURN = 'CHANGE_TURN';\r\nexports.RESET_GAME = 'RESET_GAME';\r\nvar setWinner = function (winner) {\r\n    return { type: exports.SET_WINNER, winner: winner };\r\n};\r\nvar clickCell = function (row, cell) {\r\n    return { type: exports.CLICK_CELL, row: row, cell: cell };\r\n};\r\nvar reducer = function (state, action) {\r\n    switch (action.type) {\r\n        case exports.SET_WINNER:\r\n            return __assign(__assign({}, state), { winner: action.winner });\r\n        case exports.CLICK_CELL: {\r\n            var tableData = __spreadArray([], state.tableData, true);\r\n            tableData[action.row] = __spreadArray([], tableData[action.row], true);\r\n            tableData[action.row][action.cell] = state.turn;\r\n            return __assign(__assign({}, state), { tableData: tableData, recentCell: [action.row, action.cell] });\r\n        }\r\n        case exports.CHANGE_TURN: {\r\n            return __assign(__assign({}, state), { turn: state.turn === 'O' ? 'X' : 'O' });\r\n        }\r\n        case exports.RESET_GAME: {\r\n            return __assign(__assign({}, state), { turn: 'O', tableData: [\r\n                    ['', '', ''],\r\n                    ['', '', ''],\r\n                    ['', '', ''],\r\n                ], recentCell: [-1, -1] });\r\n        }\r\n        default:\r\n            return state;\r\n    }\r\n};\r\nvar TicTacToe = function () {\r\n    var _a = (0, react_1.useReducer)(reducer, initialState), state = _a[0], dispatch = _a[1];\r\n    var tableData = state.tableData, turn = state.turn, winner = state.winner, recentCell = state.recentCell;\r\n    (0, react_1.useEffect)(function () {\r\n        var row = recentCell[0], cell = recentCell[1];\r\n        if (row < 0) {\r\n            return;\r\n        }\r\n        var full = false;\r\n        if (tableData[row][0] === turn &&\r\n            tableData[row][1] === turn &&\r\n            tableData[row][2] === turn) {\r\n            full = true;\r\n        }\r\n        if (tableData[cell][0] === turn &&\r\n            tableData[cell][1] === turn &&\r\n            tableData[cell][2] === turn) {\r\n            full = true;\r\n        }\r\n        if (tableData[0][0] === turn &&\r\n            tableData[1][1] === turn &&\r\n            tableData[2][2] === turn) {\r\n            full = true;\r\n        }\r\n        if (tableData[0][2] === turn &&\r\n            tableData[1][1] === turn &&\r\n            tableData[2][0] === turn) {\r\n            full = true;\r\n        }\r\n        if (full) {\r\n            dispatch({ type: exports.SET_WINNER, winner: turn });\r\n            dispatch({ type: exports.RESET_GAME });\r\n        }\r\n        else {\r\n            var all_1 = true;\r\n            tableData.forEach(function (row) {\r\n                row.forEach(function (cell) {\r\n                    if (!cell) {\r\n                        all_1 = false;\r\n                    }\r\n                });\r\n            });\r\n            if (all_1) {\r\n                dispatch({ type: exports.RESET_GAME });\r\n            }\r\n            else {\r\n                dispatch({ type: exports.CHANGE_TURN });\r\n            }\r\n        }\r\n    }, [recentCell]);\r\n    var onClickTable = (0, react_1.useCallback)(function () {\r\n        dispatch(setWinner('O'));\r\n    }, []);\r\n    return (React.createElement(React.Fragment, null,\r\n        React.createElement(Table_1[\"default\"], { onClick: onClickTable, tableData: tableData, dispatch: dispatch }),\r\n        winner && React.createElement(\"div\", null,\r\n            winner,\r\n            \"\\uB2D8\\uC758 \\uC2B9\\uB9AC\")));\r\n};\r\nexports[\"default\"] = TicTacToe;\r\n\n\n//# sourceURL=webpack://practices/./TicTacToe.tsx?");
+
+/***/ }),
+
+/***/ "./Tr.tsx":
+/*!****************!*\
+  !*** ./Tr.tsx ***!
+  \****************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+eval("\r\nexports.__esModule = true;\r\nvar React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar react_1 = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar Td_1 = __webpack_require__(/*! ./Td */ \"./Td.tsx\");\r\nvar Tr = function (_a) {\r\n    var rowData = _a.rowData, rowIndex = _a.rowIndex, dispatch = _a.dispatch;\r\n    return (React.createElement(\"tr\", null, Array(rowData.length).fill(null).map(function (td, i) { return ((0, react_1.useMemo)(function () { return React.createElement(Td_1[\"default\"], { key: i, dispatch: dispatch, rowIndex: rowIndex, cellIndex: i, cellData: rowData[i] }, ''); }, [rowData[i]])); })));\r\n};\r\nexports[\"default\"] = Tr;\r\n\n\n//# sourceURL=webpack://practices/./Tr.tsx?");
 
 /***/ }),
 
@@ -27,7 +60,7 @@ eval("\r\nexports.__esModule = true;\r\nvar React = __webpack_require__(/*! reac
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
-eval("\r\nexports.__esModule = true;\r\nvar React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar ReactDOM = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\r\nvar root_1 = __webpack_require__(/*! react-hot-loader/root */ \"./node_modules/react-hot-loader/root.js\");\r\nvar RSP_1 = __webpack_require__(/*! ./RSP */ \"./RSP.tsx\");\r\nvar Hot = (0, root_1.hot)(RSP_1[\"default\"]);\r\nReactDOM.render(React.createElement(RSP_1[\"default\"], null), document.querySelector('#root'));\r\n\n\n//# sourceURL=webpack://practices/./client.tsx?");
+eval("\r\nexports.__esModule = true;\r\nvar React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\r\nvar ReactDOM = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\r\nvar root_1 = __webpack_require__(/*! react-hot-loader/root */ \"./node_modules/react-hot-loader/root.js\");\r\nvar TicTacToe_1 = __webpack_require__(/*! ./TicTacToe */ \"./TicTacToe.tsx\");\r\nvar Hot = (0, root_1.hot)(TicTacToe_1[\"default\"]);\r\nReactDOM.render(React.createElement(TicTacToe_1[\"default\"], null), document.querySelector('#root'));\r\n\n\n//# sourceURL=webpack://practices/./client.tsx?");
 
 /***/ }),
 
@@ -182,7 +215,7 @@ eval("\n\nif (false) {} else {\n  module.exports = __webpack_require__(/*! ./cjs
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;

@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root'
-import RSP from "./RSP";
+import TicTacToe from "./TicTacToe";
 
-const Hot= hot(RSP);
+const Hot= hot(TicTacToe);
 
-ReactDOM.render(<RSP/>, document.querySelector('#root'));
+ReactDOM.render(<TicTacToe/>, document.querySelector('#root'));
