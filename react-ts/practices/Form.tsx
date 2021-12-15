@@ -1,7 +1,8 @@
 import * as React from "react";
-import {START_GAME, TableContext} from "./Mine";
+import { TableContext} from "./Mine";
 import {useState, useCallback,useContext, memo} from "react";
 import Table from "./Table";
+import {startGame} from "./mineaction";
 
 const Form = ()=>{
     const [row,setRow]=useState(10);
@@ -10,16 +11,20 @@ const Form = ()=>{
     const {dispatch}= useContext(TableContext);
 
     const onChangeRow=useCallback((e:React.ChangeEvent<HTMLInputElement>)=>{
-        setRow(e.target.value);
+        setRow(Number(e.target.value));
     },[])
 
     const onChangeCell=useCallback((e:React.ChangeEvent<HTMLInputElement>)=>{
-        setCell(e.target.value);
+        setCell(Number(e.target.value));
     },[]);
 
     const onChangeMine = useCallback((e:React.ChangeEvent<HTMLInputElement>)=>{
-        setMine(e.target.value);
+        setMine(Number(e.target.value));
     },[])
+
+    const onClickBtn = useCallback(()=>{
+        dispatch(startGame(row,cell,mine));
+    }, [row,cell,mine])
 
     return (
         <div>
