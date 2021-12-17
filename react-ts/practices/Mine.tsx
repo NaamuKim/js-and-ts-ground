@@ -25,7 +25,7 @@ export const CODE = {
 export type Codes = typeof CODE[keyof typeof CODE];
 
 export interface Context {
-    tableData: number[][],
+    tableData: Codes[][],
     halted: boolean,
     dispatch:Dispatch<ReducerActions>
 }
@@ -37,7 +37,7 @@ export const TableContext=createContext<Context>({
 })
 
 interface ReducerState {
-    tableData: number[][];
+    tableData: Codes[][];
     data : {
         row: number,
         cell: number,
@@ -62,7 +62,7 @@ const initialState: ReducerState ={
     openedCount: 0,
 }
 
-const plantMine = (row:number, cell: number, mine: number)=>{
+const plantMine = (row:number, cell: number, mine: number): Codes[][]=>{
     const candidate = Array(row*cell).fill(undefined).map((arr,i)=>{
         return i;
     })
@@ -71,9 +71,9 @@ const plantMine = (row:number, cell: number, mine: number)=>{
         const chosen = candidate.splice(Math.floor(Math.random()* candidate.length),1)[0];
         shuffle.push(chosen);
     }
-    const data= [];
+    const data: Codes[][]=[];
     for(let i= 0; i<row; i++) {
-        const rowData:number[]=[];
+        const rowData:Codes[]=[];
         data.push(rowData);
         for(let j=0;j<cell;j++){
             rowData.push(CODE.NORMAL);
