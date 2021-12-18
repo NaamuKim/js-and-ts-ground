@@ -10,6 +10,8 @@ import {
     QUESTION_CELL,
     NORMALIZE_CELL,
 } from "./mineaction";
+import Table from './MineTable'
+import Form from './Form'
 
 export const CODE = {
     MINE: -7,

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {TableContext} from './Mine'
 import {useContext, FC, memo} from 'react';
-
+import Tr from './MineTr'
 
 const Table = () =>{
     const {tableData} = useContext(TableContext);
@@ -11,3 +11,5 @@ const Table = () =>{
         </table>
     )
 }
+
+export default Table;
