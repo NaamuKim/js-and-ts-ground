@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>이미지 캐루셀</title>
+		<link rel="stylesheet" href="./src/styles/style.css" />
+	</head>
+	<body>
+		<script type="text/javascript" src="./index.js"></script>
+		<div id="file-form">
+			<input
+				type="file"
+				name="chooseFile"
+				accept="image/*"
+				onchange="loadFile(this)"
+			/>
+			<button class="upload-btn">이미지 업로드</button>
+		</div>
+		</form>
+		<button id="prev-btn" type="button" onclick="onClickPrev">< prev</button>
+		<button id="next-btn" type="button" onclick="onClickNext">next ></button>
+		<div class="carousel"></div>
+	</body>
+</html>
