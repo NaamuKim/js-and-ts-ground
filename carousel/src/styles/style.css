@@ -1,24 +1,38 @@
-#file-form {
-	position: absolute;
-	font-size: 18px;
-	line-height: 26px;
-	align-items: center;
-	text-align: Center;
+@import "reset.css";
+
+.util-ir {
+	display: block;
+	overflow: hidden;
+	width: 1px;
+	height: 1px;
+	font-size: 1px;
+	line-height: 0;
+	text-indent: -9999px;
 }
 
-#file-form input {
+#file-form {
+	top: 88px;
+	left: 149px;
+	position: absolute;
+}
+
+#real-input {
 	display: none;
 }
 
 .upload-btn {
 	width: 185px;
 	height: 54px;
-	margin: 156px 150px;
 	color: #fff;
 	background: #2f80ed;
 	border-radius: 10px;
 	border: none;
-	font-weight: 700;
+	cursor: pointer;
+	font-size: 18px;
+	line-height: 56px;
+	align-items: center;
+	text-align: Center;
+	font-family: "Noto Sans Kr", sans-serif;
 }
 
 #prev-btn {
@@ -42,3 +56,63 @@
 	background: #fff;
 	font-size: 20px;
 }
+
+#carousel {
+	display: flex;
+	height: 100vh;
+	justify-content: center;
+	align-items: center;
+}
+
+.carousel-cont {
+}
+
+.carousel-list {
+	width: 464px;
+	height: 464px;
+	position: relative;
+}
+
+.carousel-item {
+	position: absolute;
+	top: 0;
+	left: 0;
+	--webkit-box-reflect: below 35px
+		linear-gradient(transparent 55%, rgba(255, 255, 255, 0.25));
+}
+/* #first-img {
+	position: absolute;
+	width: 290px;
+	height: 290px;
+	margin: 350px 346px;
+	border-radius: 15px;
+	background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+}
+
+#second-img {
+	position: absolute;
+	width: 378px;
+	height: 378px;
+	margin: 509px 302px;
+	border-radius: 14px;
+	background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+	box-shadow: 0px 0px 20.3957px rgba(0, 0, 0, 0.3);
+}
+
+#center-img {
+	position: absolute;
+	width: 464px;
+	margin: 268px 728px;
+	border-radius: 10px;
+	filter: drop-shadow(0px 0px 15px rgba(0, 0, 0, 0.3));
+}
+
+#fourth-img {
+	position: absolute;
+	width: 378px;
+	height: 378px;
+	margin: 302px 1031px;
+	border-radius: 14px;
+	background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+	box-shadow: 0px 0px 20.3957px rgba(0, 0, 0, 0.3);
+} */

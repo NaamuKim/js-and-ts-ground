@@ -6,21 +6,37 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>이미지 캐루셀</title>
 		<link rel="stylesheet" href="./src/styles/style.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 	<body>
-		<script type="text/javascript" src="./index.js"></script>
-		<div id="file-form">
+		<section id="carousel">
+			<h1 class="util-ir">캐러셀 이미지 리스트</h1>
+			<button id="prev-btn" type="button">< prev</button>
+			<button id="next-btn" type="button" onclick="onClickNext">next ></button>
+			<div class="carousel-cont">
+				<ul class="carousel-list">
+					<li id="first-img"><img /></li>
+					<li id="second-img"><img /></li>
+					<li id="center-img"><img /></li>
+					<li id="fourth-img"><img /></li>
+					<li id="fifth-img"><img /></li>
+				</ul>
+			</div>
+		</section>
+		<form id="file-form">
 			<input
+				id="real-input"
 				type="file"
-				name="chooseFile"
 				accept="image/*"
 				onchange="loadFile(this)"
 			/>
-			<button class="upload-btn">이미지 업로드</button>
-		</div>
+			<button class="upload-btn" type="button">이미지 업로드</button>
 		</form>
-		<button id="prev-btn" type="button" onclick="onClickPrev">< prev</button>
-		<button id="next-btn" type="button" onclick="onClickNext">next ></button>
-		<div class="carousel"></div>
+		<script type="text/javascript" src="./index.js"></script>
 	</body>
 </html>
