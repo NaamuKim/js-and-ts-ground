@@ -7,9 +7,13 @@
 const uploadBtn = document.querySelector(".upload-btn");
 const realInput = document.querySelector("#real-input");
 const carousel = document.querySelector(".carousel");
+const carList = document.querySelector(".carousel-list");
 const prevBtn = document.querySelector("#prev-btn");
 const nextBtn = document.querySelector("#next-btn");
-
+const nowItem = document.querySelector(".now");
+console.log(nowItem);
+let listCnt = carList.children.length;
+console.log(listCnt);
 uploadBtn.addEventListener("click", () => {
 	realInput.click();
 });
@@ -17,14 +21,8 @@ uploadBtn.addEventListener("click", () => {
 const loadFile = (input) => {
 	const file = input.files[0];
 	const newImage = document.createElement("img");
-	newImage.setAttribute("class", "img");
-
 	newImage.src = URL.createObjectURL(file);
-	newImage.style.width = "464px";
-	newImage.style.height = "463px";
-	newImage.style.margin = "268px 728px";
-	newImage.style.borderRadius = "10px";
-	carousel.appendChild(newImage);
+	nowItem.appendChild(newImage);
 };
 
 prevBtn.addEventListener("click", () => {

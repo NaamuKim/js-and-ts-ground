@@ -16,17 +16,17 @@
 	<body>
 		<section id="carousel">
 			<h1 class="util-ir">캐러셀 이미지 리스트</h1>
-			<button id="prev-btn" type="button">< prev</button>
-			<button id="next-btn" type="button" onclick="onClickNext">next ></button>
 			<div class="carousel-cont">
 				<ul class="carousel-list">
-					<li id="first-img"><img /></li>
-					<li id="second-img"><img /></li>
-					<li id="center-img"><img /></li>
-					<li id="fourth-img"><img /></li>
-					<li id="fifth-img"><img /></li>
+					<li class="carousel-item now">
+						<img src="./src/images/이미지_1.png" />
+					</li>
+					<li class="carousel-item"><img src="./src/images/이미지_2.png" /></li>
+					<li class="carousel-item"><img src="./src/images/이미지_3.png" /></li>
 				</ul>
 			</div>
+			<button id="prev-btn" type="button">&lt; prev</button>
+			<button id="next-btn" type="button">next &gt</button>
 		</section>
 		<form id="file-form">
 			<input
