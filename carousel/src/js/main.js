@@ -15,11 +15,28 @@
 		realInput.click();
 	});
 
+	function createTag(url) {
+		const list = document.createElement("li");
+		const img = document.createElement("img");
+		list.classList.add("carousel-item");
+		img.src = url;
+		list.appendChild(img);
+		const items = document.querySelectorAll(".carousel-item");
+		items.forEach((item) => item.classList.remove("now"));
+		list.classList.add("now");
+		return list;
+	}
+
 	const loadFile = (input) => {
-		const file = input.files[0];
-		const newImage = document.createElement("img");
-		newImage.src = URL.createObjectURL(file);
-		nowItem.appendChild(newImage);
+		const items = document.querySelectorAll(".carousel-item");
+		if (input.files) {
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				const imgUrl = e.target.result;
+				carList.insertBefore(createTag(imgUrl), items[0]);
+			};
+			reader.readAsDataURL(input.files[0]);
+		}
 	};
 
 	prevBtn.addEventListener("click", () => {
@@ -40,6 +57,7 @@
 			prev.classList.add("now");
 		}
 	};
+
 	const onClickNext = () => {
 		const carItem = document.querySelectorAll(".carousel-item");
 		if (carItem.length > 1) {
