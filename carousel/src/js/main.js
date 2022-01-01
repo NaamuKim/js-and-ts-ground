@@ -15,6 +15,44 @@
 		realInput.click();
 	});
 
+	realInput.addEventListener("change", (e) => {
+		loadFile(e.target);
+	});
+
+	const changeTransform = () => {
+		const items = document.querySelectorAll(".carousel-item");
+
+		items.forEach((e, i) => {
+			const degree = 360 / items.length;
+			if (items.length > 1) {
+				e.style.transform = `rotateY(${
+					i * degree
+				}deg) translateZ(250px) rotateY(-${i * degree}deg)`;
+			}
+			if (items.length >= 5) {
+				if (i === 0) {
+					e.style.transform = "rotateY(0deg) translateZ(250px)";
+				} else if (i === 1) {
+					e.style.transform =
+						"rotateY(72deg) translateZ(250px) rotateY(-72deg)";
+				} else if (i === 2) {
+					e.style.transform =
+						"rotateY(144deg) translateZ(250px) rotateY(-144deg)";
+				} else if (i === items.length - 2) {
+					e.style.transform =
+						"rotateY(216deg) translateZ(250px) rotateY(-216deg)";
+				} else if (i === item.length - 1) {
+					e.style.transform =
+						"rotateY(288deg) translateZ(250px) rotateY(-288deg)";
+				} else {
+					e.style.transform = `rotateY(${
+						i * degree
+					}deg) translateZ(250px) rotateY(-${i * degree}deg)`;
+				}
+			}
+		});
+	};
+
 	function createTag(url) {
 		const list = document.createElement("li");
 		const img = document.createElement("img");
@@ -27,17 +65,18 @@
 		return list;
 	}
 
-	const loadFile = (input) => {
+	function loadFile(input) {
 		const items = document.querySelectorAll(".carousel-item");
 		if (input.files) {
 			const reader = new FileReader();
 			reader.onload = (e) => {
 				const imgUrl = e.target.result;
 				carList.insertBefore(createTag(imgUrl), items[0]);
+				changeTransform();
 			};
 			reader.readAsDataURL(input.files[0]);
 		}
-	};
+	}
 
 	prevBtn.addEventListener("click", () => {
 		onClickPrev();
@@ -55,6 +94,7 @@
 			carList.insertBefore(prev, carItem[0]);
 			nowItem.classList.remove("now");
 			prev.classList.add("now");
+			changeTransform();
 		}
 	};
 
@@ -65,6 +105,8 @@
 			const next = nowItem.nextElementSibling;
 			carList.appendChild(nowItem);
 			next.classList.add("now");
+			changeTransform();
 		}
 	};
+	window.onload = changeTransform();
 })();
