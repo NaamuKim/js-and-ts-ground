@@ -37,10 +37,10 @@
 						"rotateY(72deg) translateZ(250px) rotateY(-72deg)";
 				} else if (i === 2) {
 					e.style.transform =
-						"rotateY(144deg) translateZ(250px) rotateY(-144deg)";
+						"rotateY(144deg) translateZ(250px) rotateY(-144deg) translateX(400px)";
 				} else if (i === items.length - 2) {
 					e.style.transform =
-						"rotateY(216deg) translateZ(250px) rotateY(-216deg)";
+						"rotateY(216deg) translateZ(250px) rotateY(-216deg) translateX(-400px)";
 				} else if (i === item.length - 1) {
 					e.style.transform =
 						"rotateY(288deg) translateZ(250px) rotateY(-288deg)";
