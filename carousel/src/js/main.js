@@ -23,7 +23,7 @@
 		const items = document.querySelectorAll(".carousel-item");
 
 		items.forEach((e, i) => {
-			const degree = 360 / items.length;
+			const degree = 360 / items.length; //이렇게 사용하면 degree*i가 원주 상에 아이템이 있어야할 각도가 된다.
 			if (items.length > 1) {
 				e.style.transform = `rotateY(${
 					i * degree
@@ -41,7 +41,7 @@
 				} else if (i === items.length - 2) {
 					e.style.transform =
 						"rotateY(216deg) translateZ(250px) rotateY(-216deg) translateX(-400px)";
-				} else if (i === item.length - 1) {
+				} else if (i === items.length - 1) {
 					e.style.transform =
 						"rotateY(288deg) translateZ(250px) rotateY(-288deg)";
 				} else {

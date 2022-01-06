@@ -1,0 +1,148 @@
+@charset "utf-8";
+
+/* utills */
+/* 스크린 리더용 */
+.sr-only {
+	position: absolute;
+	left: -10000px;
+	top: auto;
+	width: 1px;
+	height: 1px;
+}
+
+/* css */
+#app {
+	font-family: "Noto Sans Kr", sans-serif;
+	overflow: scroll;
+}
+
+.box {
+	position: absolute;
+	background-color: #333333;
+	width: 608px;
+	height: 500px;
+	left: 704px;
+	top: 197px;
+	color: #ffffff;
+	border-radius: 10px;
+}
+
+.title {
+	position: absolute;
+	font-weight: 700;
+	font-size: 32px;
+	line-height: 46px;
+	left: 266px;
+	top: 100px;
+}
+
+.info {
+	position: absolute;
+	display: flex;
+	width: 140px;
+	height: 23px;
+	left: 266px;
+	top: 64px;
+	font-family: Noto Sans KR, sans-serif;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 23px;
+}
+
+.info li + li::before {
+	content: "";
+	display: inline-block;
+	width: 1px;
+	height: 13px;
+	background-color: #bdbdbd;
+	margin: 0px 7px -1px 3px;
+}
+
+.poster {
+	position: fixed;
+	left: 640px;
+	top: 250px;
+	width: 281px;
+	height: 396px;
+	border-radius: 10px;
+}
+
+.like button {
+	display: flex;
+}
+
+.icon-thumb-up {
+	position: absolute;
+	text-indent: -9999px;
+	width: 60px;
+	height: 60px;
+	left: 266px;
+	top: 260px;
+	border: 2px solid #ffffff;
+	border-radius: 30px;
+	background-image: url("/rating-with-stars/src/images/icon_thumbs_up.png");
+	background-repeat: no-repeat;
+	background-size: 30px;
+	background-position: center;
+}
+
+.button-recommend.on .icon-thumb-up {
+	background-image: url("/src/images/icon_thumbs_up_fill.png");
+}
+
+.button-recommend.on {
+	background-color: #2f80ed;
+}
+.icon-heart {
+	position: absolute;
+	text-indent: -9999px;
+	width: 60px;
+	height: 60px;
+	left: 363px;
+	top: 260px;
+	border: 2px solid #ffffff;
+	border-radius: 30px;
+	background-image: url("/rating-with-stars/src/images/icon_heart.png");
+	background-repeat: no-repeat;
+	background-size: 30px;
+	background-position: center;
+}
+
+.button-heart.on .icon-heart {
+	background-image: url("/src/images/icon_heart_fill.png");
+}
+
+.button-heart.on {
+	background-color: #eb5757;
+}
+.star-avg {
+	position: absolute;
+	color: #f2f2f2;
+	top: 342px;
+	left: 266px;
+	font-family: Noto Sans KR, sans-serif;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 23px;
+}
+
+.stars {
+	position: absolute;
+	display: flex;
+	left: 262px;
+	top: 381px;
+}
+
+.star {
+	width: 51px;
+	height: 51px;
+	background-image: url("/src/images/icon_empty_star.png");
+}
+
+.icon-remove-star {
+	position: absolute;
+	left: 532px;
+	top: 395px;
+	width: 22px;
+	height: 22px;
+}
