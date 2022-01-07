@@ -1,148 +1,128 @@
-@charset "utf-8";
-
-/* utills */
-/* 스크린 리더용 */
-.sr-only {
-	position: absolute;
-	left: -10000px;
-	top: auto;
-	width: 1px;
-	height: 1px;
-}
-
-/* css */
 #app {
-	font-family: "Noto Sans Kr", sans-serif;
 	overflow: scroll;
+	font-family: "Noto Sans KR", sans-serif;
 }
 
-.box {
+img {
+	width: 100%;
+}
+
+.movie-container {
+	display: flex;
+	height: 100vh;
+	align-items: center;
+	width: 673px;
+	margin: 0 auto;
+}
+
+.movie {
+	display: flex;
+	align-items: center;
+	position: relative;
+	margin-left: 64px;
+}
+
+.poster-container {
 	position: absolute;
-	background-color: #333333;
+	left: -64px;
+	width: 281px;
+	height: 396px;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.content {
 	width: 608px;
 	height: 500px;
-	left: 704px;
-	top: 197px;
-	color: #ffffff;
-	border-radius: 10px;
+	box-sizing: border-box;
+	color: #fff;
+	background-color: #333;
+	border-radius: 15px;
+	padding: 64px 45px 68px 266px;
 }
 
-.title {
-	position: absolute;
-	font-weight: 700;
-	font-size: 32px;
-	line-height: 46px;
-	left: 266px;
-	top: 100px;
+.content-type span {
+	color: #bdbdbd;
 }
-
-.info {
-	position: absolute;
-	display: flex;
-	width: 140px;
-	height: 23px;
-	left: 266px;
-	top: 64px;
-	font-family: Noto Sans KR, sans-serif;
-	font-weight: 500;
-	font-size: 16px;
-	line-height: 23px;
-}
-
-.info li + li::before {
+.content-type span + span::before {
 	content: "";
 	display: inline-block;
 	width: 1px;
 	height: 13px;
-	background-color: #bdbdbd;
 	margin: 0px 7px -1px 3px;
+	background-color: #bdbdbd;
 }
 
-.poster {
-	position: fixed;
-	left: 640px;
-	top: 250px;
-	width: 281px;
-	height: 396px;
-	border-radius: 10px;
+.content-title {
+	margin: 13px 0 114px 0;
+	font-size: 32px;
+	line-height: 46px;
+	font-weight: 700;
 }
 
-.like button {
+.content-favorite {
 	display: flex;
+	margin-bottom: 22px;
 }
 
-.icon-thumb-up {
-	position: absolute;
-	text-indent: -9999px;
+.content-favorite button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 60px;
 	height: 60px;
-	left: 266px;
-	top: 260px;
-	border: 2px solid #ffffff;
-	border-radius: 30px;
-	background-image: url("/rating-with-stars/src/images/icon_thumbs_up.png");
-	background-repeat: no-repeat;
-	background-size: 30px;
-	background-position: center;
+	border: 2px solid #fff;
+	border-radius: 100%;
+	margin-right: 20px;
 }
 
-.button-recommend.on .icon-thumb-up {
-	background-image: url("/src/images/icon_thumbs_up_fill.png");
+.button-recommend .icon-thumbs-up {
+	width: 23.8px;
+	height: 23.8px;
+	margin-top: -1px;
+	background: center / contain
+		url("/rating-with-stars/src/images/icon_thumbs_up.png") no-repeat;
 }
 
-.button-recommend.on {
-	background-color: #2f80ed;
+.button-recommend.on .icon-thumbs-up {
+	background-image: url("/rating-with-stars/src/images/icon_thumbs_up_fill.png");
 }
-.icon-heart {
-	position: absolute;
-	text-indent: -9999px;
-	width: 60px;
-	height: 60px;
-	left: 363px;
-	top: 260px;
-	border: 2px solid #ffffff;
-	border-radius: 30px;
-	background-image: url("/rating-with-stars/src/images/icon_heart.png");
-	background-repeat: no-repeat;
-	background-size: 30px;
-	background-position: center;
+
+.button-heart .icon-heart {
+	width: 22.6px;
+	height: 22.6px;
+	margin-top: 3px;
+	background: center / contain
+		url("/rating-with-stars/src/images/icon_heart.png") no-repeat;
 }
 
 .button-heart.on .icon-heart {
-	background-image: url("/src/images/icon_heart_fill.png");
+	background-image: url("rating-with-stars/src/images/icon_heart_fill.png");
 }
 
-.button-heart.on {
-	background-color: #eb5757;
-}
-.star-avg {
-	position: absolute;
-	color: #f2f2f2;
-	top: 342px;
-	left: 266px;
-	font-family: Noto Sans KR, sans-serif;
-	font-weight: 500;
-	font-size: 16px;
-	line-height: 23px;
+.star-average {
+	display: block;
+	margin-bottom: 16px;
 }
 
-.stars {
-	position: absolute;
+.star-point-container {
 	display: flex;
-	left: 262px;
-	top: 381px;
+	align-items: center;
 }
 
-.star {
-	width: 51px;
-	height: 51px;
-	background-image: url("/src/images/icon_empty_star.png");
+.star-background {
+	display: flex;
+	/* width: 250px;
+	height: 50px; */
+}
+
+.star-background img {
+	/* width: auto; */
+	width: 50px;
 }
 
 .icon-remove-star {
-	position: absolute;
-	left: 532px;
-	top: 395px;
 	width: 22px;
 	height: 22px;
+	margin-left: 12px;
 }

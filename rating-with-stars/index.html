@@ -1,78 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 	<head>
 		<meta charset="UTF-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-		/>
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="src/styles/reset.css" />
 		<link rel="stylesheet" href="src/styles/style.css" />
-		<title>counting-star</title>
+		<title>영화 별점 평가하기</title>
 	</head>
+
 	<body>
 		<div id="app">
-			<section class="box">
-				<h1 class="sr-only">별점 평가 영역</h1>
-				<h2 class="title">파이썬 부트캠프</h2>
-				<ul class="info">
-					<li>드라마</li>
-					<li>전체 이용가</li>
-				</ul>
-				<img class="poster" src="src/images/poster_bootcamp.png" />
-				<div class="like">
-					<button class="button-recommend">
-						<i class="icon-thumb-up">추천합니다</i>
-					</button>
-					<button class="button-heart">
-						<i class="icon-heart">추천합니다</i>
-					</button>
-				</div>
-				<span class="star-avg">별점 평균 4.5</span>
-				<div class="stars">
-					<img
-						class="star star1"
-						src="src/images/icon_empty_star.png"
-						alt="1"
-						title="별로에요.."
-					/>
-					<img
-						class="star star2"
-						src="src/images/icon_empty_star.png"
-						alt="2"
-						title="그저 그래요"
-					/>
-					<img
-						class="star star3"
-						src="src/images/icon_empty_star.png"
-						alt="3"
-						title="괜찮아요"
-					/>
-					<img
-						class="star star4"
-						src="src/images/icon_empty_star.png"
-						alt="4"
-						title="좋아요!"
-					/>
-					<img
-						class="star star5"
-						src="src/images/icon_empty_star.png"
-						alt="5"
-						title="완전 강추!!"
-					/>
-				</div>
-				<button class="icon-remove-star">
-					<img src="src/images//icon_remove_star.png" />
-				</button>
-			</section>
+			<div class="movie-container">
+				<section class="movie">
+					<div class="poster-container">
+						<img src="./src/images/poster_bootcamp.png" alt="영화 포스터" />
+					</div>
+					<div class="content">
+						<div class="content-type">
+							<span>드라마</span>
+							<span>전체이용가</span>
+						</div>
+						<h3 class="content-title">파이썬 부트캠프</h3>
+						<div class="content-favorite">
+							<button class="button-recommend">
+								<i class="icon-thumbs-up"></i>
+							</button>
+							<button class="button-heart">
+								<i class="icon-heart"></i>
+							</button>
+						</div>
+						<div class="content-star">
+							<em class="star-average">별점 평균 4.5</em>
+							<div class="star-point-container">
+								<div class="star-background">
+									<img
+										src="./src/images/icon_empty_star.png"
+										data-point="1"
+										title="별로에요.."
+										alt="1"
+									/>
+									<img
+										src="./src/images/icon_empty_star.png"
+										data-point="2"
+										title="그저 그래요"
+										alt="2"
+									/>
+									<img
+										src="./src/images/icon_empty_star.png"
+										data-point="3"
+										title="괜찮아요"
+										alt="3"
+									/>
+									<img
+										src="./src/images/icon_empty_star.png"
+										data-point="4"
+										title="좋아요!"
+										alt="4"
+									/>
+									<img
+										src="./src/images/icon_empty_star.png"
+										data-point="5"
+										title="완전 강추!!"
+										alt="5"
+									/>
+								</div>
+								<button class="icon-remove-star">
+									<img
+										src="./src/images/icon_remove_star.png"
+										alt="별점 제거"
+									/>
+								</button>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
 		</div>
-		<script type="text/javascript" src="./src/js/main.js"></script>
+		<!-- type="module" : 스크립트를 모듈로 사용할것임을 선언합니다. -->
+		<script type="module" src="src/js/index.js"></script>
 	</body>
 </html>
