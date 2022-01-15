@@ -34,7 +34,6 @@ class StarPoint {
       const { target, offsetX: currentUserPoint } = event; //offsetX: 타겟 요소에서의 마우스 포인터의 x축 위치를 반환합니다.
       const { point } = target.dataset;
       const starPointIndex = parseInt(point, 10) - 1;
-      console.log(target.getClientRects());
       const [starImageClientRect] = target.getClientRects();
 
       const starImageWidth = starImageClientRect.width;
