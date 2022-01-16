@@ -6,6 +6,11 @@ const cards = [
   './src/images/javadog.png',
   './src/images/licat.png',
   './src/images/mura.png',
+  './src/images/binky.png',
+  './src/images/gary.png',
+  './src/images/javadog.png',
+  './src/images/licat.png',
+  './src/images/mura.png',
 ];
 let clickFlag = true;
 let clickCard = [];
@@ -22,6 +27,8 @@ function setCard(horizontal, vertical) {
     const cardBack = document.createElement('div');
     cardBack.className = 'card-back';
     cardBack.style.background = `url(${cards[i]})`;
+    cardBack.style.backgroundSize = 'cover';
+
     cardInner.appendChild(cardFront);
     cardInner.appendChild(cardBack);
     card.appendChild(cardInner);
