@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <title>Mission 1</title>
+    <meta charset="utf-8" />
+  </head>
+
+  <body>
+    <ul id="todo-list"></ul>
+    <ul id="exercise-list"></ul>
+    <ul id="project-list"></ul>
+    <script>
+      var data = [
+        {
+          text: 'JS 공부하기',
+          isCompleted: false,
+        },
+        {
+          text: 'JS 복습하기',
+          isCompleted: true,
+        },
+      ];
+      var exerciseTodo = [
+        {
+          text: '벤치 프레스',
+          isCompleted: true,
+        },
+        {
+          text: '런닝 머신 30분',
+          isCompleted: false,
+        },
+      ];
+      var projectTodo = [
+        {
+          text: '카카오 로그인 구현하기',
+          isCompleted: false,
+        },
+        {
+          text: '과제 게시판 구현하기',
+          isCompleted: false,
+        },
+      ];
+      // 이곳에서 코딩을 시작하세요!
+      function TodoList(data, ulId) {
+        this.isValidate = function () {
+          if (!data || !Array.isArray(data)) {
+            throw new Error('데이터의 형식이 올바르지 않습니다.');
+          }
+          data.forEach((todo) => {
+            if (!todo.hasOwnProperty('text') || !todo.hasOwnProperty('isCompleted')) {
+              throw new Error('데이터는 할일과 완료 여부가 포함돼야합니다!');
+            }
+          });
+
+          data.forEach(({ text, isCompleted }) => {
+            if (typeof text !== 'string') {
+              throw new Error('todo가 문자열이 아닙니다!');
+            }
+            if (typeof isCompleted !== 'boolean') {
+              throw new Error('isCompleted를 다시 확인해 주세요');
+            }
+          });
+        };
+        this.isValidate();
+        this.data = data;
+        this.ulId = ulId;
+
+        if (!new.target) {
+          throw new Error('new 키워드를 사용해주세요!');
+        }
+        this.render = function () {
+          const html = `
+            ${this.data
+              .map(({ text, isCompleted }) => (isCompleted ? `<li><s>${text}</s></li>` : `<li>${text}</li>`))
+              .join('')}
+          `;
+          document.querySelector(`#${ulId}`).innerHTML = html;
+        };
+        this.setState = function (data) {
+          this.isValidate(data);
+          this.data = data;
+          this.render();
+        };
+        this.render();
+      }
+
+      // class TodoList {
+      //   constructor(){
+      //     this.data=data;
+      //     this.render();
+      //   }
+      //   render(){
+      //     let html='';
+      //     data.map(element=>{
+      //       html+=`<div>${element.text}</div>`
+      //     });
+      //     document.querySelector('#todo-list').innerHTML=html;
+      //   }
+      // }
+
+      const todoList = new TodoList(data, 'todo-list');
+      const todo2List = new TodoList(exerciseTodo, 'exercise-list');
+      const todo3List = new TodoList(projectTodo, 'project-list');
+      todoList.setState(projectTodo);
+    </script>
+  </body>
+</html>
