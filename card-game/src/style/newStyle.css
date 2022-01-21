@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+#wrapper {
+  width: 100vw;
+  height: 100vh;
+}
+
+#wrapper .tit-game {
+  position: relative;
+  margin-bottom: 72px;
+}
+
+.tit-game .tit-image {
+  display: block;
+  overflow: hidden;
+  width: 270px;
+  height: 64px;
+  padding: 0, 40px;
+  margin: 0 auto;
+  text-indent: -999px;
+  font-size: 1px;
+  background: no-repeat center / 270px 64px url(/src/images/card_game.png);
+  background-color: #fff;
+}
+
+.tit-game ::after {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -2px;
+  width: 100%;
+  height: 4px;
+  background-color: #f2994a;
+  z-index: -1;
+}
