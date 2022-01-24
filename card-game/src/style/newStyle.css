@@ -5,6 +5,12 @@
   height: 100vh;
 }
 
+#wrapper .cont-board {
+  max-width: 1038px;
+  padding-top: 75px;
+  margin: 0 auto;
+}
+
 #wrapper .tit-game {
   position: relative;
   margin-bottom: 72px;
@@ -19,7 +25,7 @@
   margin: 0 auto;
   text-indent: -999px;
   font-size: 1px;
-  background: no-repeat center / 270px 64px url(/src/images/card_game.png);
+  background: no-repeat center / 270px 64px url('/card-game/src/images/CardGame.png');
   background-color: #fff;
 }
 
