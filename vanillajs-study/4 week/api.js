@@ -1,25 +1,55 @@
-import { API_URL } from './config'
-function api() {
-  this.getData = async (username) => {
-    const res = await fetch(`${API_URL}/${username}`)
-    return await res.json()
-  }
+import { API_URL } from './config.js'
 
-  this.addData = async (data) => {
-    const res = await fetch(`${API_URL}/${username}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        content: todoText,
-      }),
-    })
-  }
+const myName = 'naamukim'
 
-  this.toggleData = async (data) => {
-    const res = await fetch(`${API_URL}/${username}`)
+export const getData = async () => {
+  const res = await fetch(`${API_URL}/${myName}`)
+  if (res.status !== 200) {
+    alert('서버로의 요청이 실패됐습니다.')
+  }
+  return await res.json()
+}
+
+export const getOtherData = async (otherName) => {
+  const res = await fetch(`${API_URL}/${otherName}`)
+  if (res.status !== 200) {
+    alert('서버로의 요청이 실패됐습니다.')
+  }
+  return await res.json()
+}
+
+export const addData = async (todoText) => {
+  const res = await fetch(`${API_URL}/${myName}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      content: todoText,
+    }),
+  })
+  if (res.status !== 200) {
+    alert('서버로의 요청이 실패됐습니다.')
   }
 }
 
-export default api
+export const toggleData = async (data) => {
+  const res = await fetch(
+    `https://todo-api.roto.codes/${myName}/${data}/toggle`,
+    {
+      method: 'PUT',
+    }
+  )
+  if (res.status !== 200) {
+    alert('서버로의 요청이 실패됐습니다.')
+  }
+}
+
+export const removeData = async (data) => {
+  const res = await fetch(`https://todo-api.roto.codes/${myName}/${data}`, {
+    method: 'DELETE',
+  })
+  if (res.status !== 200) {
+    alert('서버로의 요청이 실패됐습니다.')
+  }
+}
