@@ -1,25 +1,28 @@
-function SearchInput({ $target, onSearchGIF }) {
-  this.$searchInputDiv = document.createElement('div')
-  $target.appendChild(this.$searchInputDiv)
+import debounce from './debounce.js';
+
+function SearchInput({ $target, initialState, onSearchGIF }) {
+  this.state = initialState;
+  this.$searchInput = document.createElement('input');
+  this.$searchInput.placeholder = '검색어를 입력하세요';
+  $target.appendChild(this.$searchInput);
 
   this.render = () => {
-    this.$searchInputDiv.innerHTML = `
-    <input type="text" id="search-input">`
-  }
+    this.$searchInput.value = this.state;
+  };
 
-  this.$searchInputDiv.addEventListener('keyup', () => {
-    let timer
-    const $input = this.$searchInputDiv.querySelector('input')
-    if (timer) {
-      clearTimeout()
+  this.setState = (nextState) => {
+    if (typeof nextState === 'string' && nextState.length > 0) {
+      this.state = nextState;
+      this.render;
     }
-    timer = setTimeout(function () {
-      if ($input.value) {
-        onSearchGIF($input.value)
-      }
-    }, 1000)
-  })
-  this.render()
+  };
+  this.$searchInput.addEventListener('keyup', (e) => {
+    const { value } = e.target;
+    if (value.length > 0) {
+      debounce(() => onSearchGIF(value), 500);
+    }
+  });
+  this.render();
 }
 
-export default SearchInput
+export default SearchInput;

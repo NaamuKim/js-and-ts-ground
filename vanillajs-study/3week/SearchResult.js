@@ -9,8 +9,12 @@ function SearchResult({ initialState, $target }) {
   };
 
   this.render = () => {
-    const html = this.state.map((data) => `<img alt="${data.title}" src="${data.imageUrl}"/>`).join('');
-    $searchResultDiv.innerHTML = html;
+    const htmlString = Array.isArray(this.state)
+      ? `${this.state.map((d) => `<li><img alt="${d.title}" src="${d.imageUrl}"></li>`).join('')}`
+      : '';
+
+    $searchResultDiv.innerHTML = htmlString;
   };
+  this.render();
 }
 export default SearchResult;
