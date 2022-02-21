@@ -1,24 +1,27 @@
-import { API_URL } from './config.js'
-
-const myName = 'naamukim'
+import { API_URL } from './config.js';
+import { setLoading } from './loading.js';
+const myName = 'naamukim';
 
 export const getData = async () => {
-  const res = await fetch(`${API_URL}/${myName}`)
-  if (res.status !== 200) {
-    alert('서버로의 요청이 실패됐습니다.')
+  setLoading(true);
+  const res = await fetch(`${API_URL}/${myName}`);
+  setLoading(false);
+  if (res.status >= 400) {
+    alert('서버로의 요청이 실패됐습니다.');
+  } else {
+    return await res.json();
   }
-  return await res.json()
-}
+};
 
 export const getOtherData = async (otherName) => {
-  const res = await fetch(`${API_URL}/${otherName}`)
-  if (res.status !== 200) {
-    alert('서버로의 요청이 실패됐습니다.')
-  }
-  return await res.json()
-}
+  setLoading(true);
+  const res = await fetch(`${API_URL}/${otherName}`);
+  setLoading(false);
+  return res.json();
+};
 
 export const addData = async (todoText) => {
+  setLoading(true);
   const res = await fetch(`${API_URL}/${myName}`, {
     method: 'POST',
     headers: {
@@ -27,29 +30,23 @@ export const addData = async (todoText) => {
     body: JSON.stringify({
       content: todoText,
     }),
-  })
-  if (res.status !== 200) {
-    alert('서버로의 요청이 실패됐습니다.')
-  }
-}
+  });
+  res.status >= 400 && alert('서버로의 요청이 실패됐습니다.');
+  setLoading(false);
+};
 
 export const toggleData = async (data) => {
-  const res = await fetch(
-    `https://todo-api.roto.codes/${myName}/${data}/toggle`,
-    {
-      method: 'PUT',
-    }
-  )
-  if (res.status !== 200) {
-    alert('서버로의 요청이 실패됐습니다.')
-  }
-}
+  const res = await fetch(`https://todo-api.roto.codes/${myName}/${data}/toggle`, {
+    method: 'PUT',
+  });
+  res.status >= 400 && alert('서버로의 요청이 실패됐습니다.');
+};
 
 export const removeData = async (data) => {
+  setLoading(true);
   const res = await fetch(`https://todo-api.roto.codes/${myName}/${data}`, {
     method: 'DELETE',
-  })
-  if (res.status !== 200) {
-    alert('서버로의 요청이 실패됐습니다.')
-  }
-}
+  });
+  res.status >= 400 && alert('서버로의 요청이 실패됐습니다.');
+  setLoading(false);
+};

@@ -16,12 +16,14 @@ function SearchInput({ $target, initialState, onSearchGIF }) {
       this.render;
     }
   };
+
   this.$searchInput.addEventListener('keyup', (e) => {
     const { value } = e.target;
     if (value.length > 0) {
       debounce(() => onSearchGIF(value), 500);
     }
   });
+
   this.render();
 }
 
