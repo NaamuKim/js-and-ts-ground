@@ -5,7 +5,7 @@ const readlineInterface = readline.createInterface({
   output: process.stdout,
 });
 
-export function waitForinput(msg: string) {
+export function waitForInput(msg: string) {
   return new Promise((res) =>
     readlineInterface.question(msg, (name) => {
       res(name);
