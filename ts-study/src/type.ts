@@ -21,3 +21,5 @@ export interface ActionNewTodo {
   title: string;
   priority: Priority;
 }
+
+export type Action = ActionNewTodo;
