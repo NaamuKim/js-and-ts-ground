@@ -1,5 +1,5 @@
 import { waitForInput } from './input';
-import { AppState } from './type';
+import { AppState, Priority } from './type';
 
 export abstract class Command {
   constructor(public key: string, private desc: string) {}
@@ -20,5 +20,21 @@ export class CommandPrintTodos extends Command {
       console.log(text);
     }
     await waitForInput('press any key');
+  }
+}
+export class CommandNewTodo extends Command {
+  constructor() {
+    super('n', '할 일  추가하기');
+  }
+  async run(): Promise<void> {
+    const title = await waitForInput('title: ');
+    const priorityStr = await waitForInput('priority: ');
+
+    const priority = Number(priorityStr);
+    if (title && CommandNewTodo.getIsPriority(priority)) {
+    }
+  }
+  static getIsPriority(priority: number): priority is Priority {
+    return getIsValidEnumvalue(Priority, priority);
   }
 }

@@ -1,13 +1,13 @@
-import { Command, CommandPrintTodos } from './Command';
+import { Command, CommandNewTodo, CommandPrintTodos } from './Command';
 import { waitForInput } from './input';
 import Todo from './Todo';
 import { AppState, Priority } from './type';
 
-const commands: Command[] = [new CommandPrintTodos()];
+const commands: Command[] = [new CommandPrintTodos(), new CommandNewTodo()];
 
 async function main() {
   const state: AppState = {
-    todos: [new Todo('test1', Priority.High), new Todo('test1', Priority.High), new Todo('test1', Priority.High)],
+    todos: [new Todo('test1', Priority.High), new Todo('test1', Priority.Medium), new Todo('test1', Priority.Low)],
   };
   while (true) {
     console.clear();
