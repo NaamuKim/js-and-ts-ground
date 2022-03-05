@@ -29,8 +29,16 @@ const getTdText = (code) => {
 };
 
 function Td({ rowIndex, cellIndex }) {
-  const { tableData } = useContext(TableContext);
-  return <td>{getTdText(tableData[rowIndex][cellIndex])}</td>;
+  const { tableData, dispatch } = useContext(TableContext);
+  const onClickTd = useCallback(() => {
+    dispatch({ type: OPEN_CELL, row: rowIndex, cell: cellIndex });
+  }, [rowIndex, cellIndex]);
+
+  return (
+    <td style={getTdStyle(tableData[(rowIndex, cellIndex)])} onClick={onClickTd}>
+      {getTdText(tableData[rowIndex][cellIndex])}
+    </td>
+  );
 }
 
 export default Td;
