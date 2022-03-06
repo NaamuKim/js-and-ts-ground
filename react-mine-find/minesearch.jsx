@@ -54,8 +54,12 @@ const plantMine = (row, cell, mine) => {
 
 export const START_GAME = 'START_GAME';
 export const OPEN_CELL = 'OPEN_CELL';
+export const CLICK_MINE = 'CLICK_MINE';
+export const FLAG_CELL = 'FLAG_CELL';
+export const QUESTION_CELL = 'QUESTION_CELL';
+export const NORMALIZE_CELL = 'NORMALIZXE_CELL';
 
-const reducer = (state, action) => {
+export const reducer = (state, action) => {
   switch (action.type) {
     case START_GAME:
       return {
@@ -70,6 +74,12 @@ const reducer = (state, action) => {
         ...state,
         tableData,
       };
+    }
+    case CLICK_MINE: {
+      const tableData = [...state.tableData];
+      tableData[action.row] = [...state.tableData[action.row]];
+      tableData[action.row][action.cell] = CODE.CLICKED_MINE;
+      return { ...state, tableData };
     }
     default:
       return state;

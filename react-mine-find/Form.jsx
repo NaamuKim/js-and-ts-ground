@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useContext } from 'react';
-import { TableContext } from './minesearch';
-import { START_GAME } from './minesearch';
+import { TableContext } from './MineSearch';
+import { START_GAME } from './MineSearch';
+
 function Form() {
   const [row, setRow] = useState(10);
   const [cell, setCell] = useState(10);
@@ -22,7 +23,7 @@ function Form() {
   }, [row, cell, mine]);
   return (
     <div>
-      <input type='number' placeholder='세로' value={row} onChange={onChagneRow} />
+      <input type='number' placeholder='세로' value={row} onChange={onChangeRow} />
       <input type='number' placeholder='가로' value={cell} onChange={onChangeCell} />
       <input type='number' placeholder='지뢰' value={mine} onChange={onChangeMine} />
     </div>

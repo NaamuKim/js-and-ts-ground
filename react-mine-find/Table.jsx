@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
-import { TableContext } from './minesearch';
+import { TableContext } from './MineSearch';
 import Tr from './Tr';
+
 function Table() {
   const { tableData } = useContext(TableContext);
   return (

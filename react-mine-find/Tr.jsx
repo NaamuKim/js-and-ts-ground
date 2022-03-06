@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
-import { TableContext } from './minesearch';
-import Table from './Table';
+import { TableContext } from './MineSearch';
 import Td from './Td';
 
 function Tr({ rowIndex }) {
