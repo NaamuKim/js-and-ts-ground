@@ -1,6 +1,6 @@
 import e from 'express';
 import React, { useContext, useCallback } from 'react';
-import { CODE, ableContext, OPEN_CELL } from './MineSearch';
+import { CODE, ableContext, OPEN_CELL, CLICK_MINE, NORMALIZE_CELL } from './MineSearch';
 
 const getTdStyle = (code) => {
   switch (code) {
@@ -41,13 +41,16 @@ const getTdText = (code) => {
     case QUESTION_MINE:
       return '?';
     default:
-      return '';
+      return code || '';
   }
 };
 
 function Td({ rowIndex, cellIndex }) {
-  const { tableData, dispatch } = useContext(TableContext);
+  const { tableData, dispatch, halted } = useContext(TableContext);
   const onClickTd = useCallback(() => {
+    if (halted) {
+      return;
+    }
     switch (tableData[rowIndex][cellIndex]) {
       case CODE.OPENED:
       case CODE.FLAG_MINE:
@@ -60,7 +63,7 @@ function Td({ rowIndex, cellIndex }) {
         return;
       case CODE.MINE:
         dispatch({
-          type: Click_MINE,
+          type: CLICK_MINE,
           row: rowIndex,
           cell: cellIndex,
         });
