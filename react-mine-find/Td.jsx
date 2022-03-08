@@ -1,4 +1,3 @@
-import e from 'express';
 import React, { useContext, useCallback } from 'react';
 import { CODE, ableContext, OPEN_CELL, CLICK_MINE, NORMALIZE_CELL } from './MineSearch';
 

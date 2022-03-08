@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createContext, useMemo, useReducer } from 'react';
 import Form from './Form';
-import { reducer } from './Reducer';
+import { reducer } from './reducer';
 import Table from './Table';
 import { Codes, Context, IInitialState, InputData, ReducerState } from './type';
 
