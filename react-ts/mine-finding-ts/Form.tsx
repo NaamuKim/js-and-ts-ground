@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useCallback, useContext } from 'react';
-import { startGame } from './actionType';
+import { startGame } from './action';
 import { TableContext } from './MineFinding';
 function Form() {
   const [row, setRow] = useState(0);

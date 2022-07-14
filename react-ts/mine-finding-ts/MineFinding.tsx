@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { createContext, useMemo, useReducer } from 'react';
+import { createContext, useEffect, useMemo, useReducer } from 'react';
+import { INCREMENT_TIMER } from './action';
 import Form from './Form';
 import { reducer } from './reducer';
 import Table from './Table';
@@ -66,12 +67,24 @@ export const plantMine = ({ row, cell, mine }: InputData): Codes[][] => {
 function MineFinding() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const { tableData, halted } = state;
+  const { tableData, halted, timer, result } = state;
   const value = useMemo(() => ({ tableData, halted, dispatch }), [tableData, halted]);
+  useEffect(() => {
+    let timer: number;
+    if (halted === false) {
+      timer = window.setInterval(() => {
+        dispatch({ type: INCREMENT_TIMER });
+      }, 1000);
+    }
+    return () => {
+      clearInterval(timer);
+    };
+  }, [halted]);
   return (
     <TableContext.Provider value={value}>
       <Form />
       <Table />
+      <div>{result}</div>
     </TableContext.Provider>
   );
 }

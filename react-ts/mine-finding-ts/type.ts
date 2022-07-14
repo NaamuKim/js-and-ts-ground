@@ -7,7 +7,7 @@ import {
   QuestionMineAction,
   NormalizeCellAction,
   IncrementTimerAction,
-} from './actionType';
+} from './action';
 import { CODE } from './MineFinding';
 
 export interface ReducerState {

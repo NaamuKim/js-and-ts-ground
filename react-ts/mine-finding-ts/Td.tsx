@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FC, memo, useCallback, useContext } from 'react';
-import { clickMine, flagMine, normalizeCell, openCell } from './actionType';
+import { clickMine, flagMine, normalizeCell, openCell } from './action';
 import { CODE, TableContext } from './MineFinding';
 import { Codes } from './type';
 

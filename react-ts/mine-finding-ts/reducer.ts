@@ -1,4 +1,4 @@
-import { CLICK_MINE, START_GAME, FLAG_MINE, QUESTION_MINE, NORMALIZE_CELL, OPEN_CELL } from './actionType';
+import { CLICK_MINE, START_GAME, FLAG_MINE, QUESTION_MINE, NORMALIZE_CELL, OPEN_CELL, INCREMENT_TIMER } from './action';
 import { CODE, initialState, plantMine } from './MineFinding';
 import { Codes, ReducerActions, ReducerState } from './type';
 
@@ -151,6 +151,12 @@ export const reducer = (state = initialState, action: ReducerActions): ReducerSt
       return {
         ...state,
         tableData,
+      };
+    }
+    case INCREMENT_TIMER: {
+      return {
+        ...state,
+        timer: state.timer + 1,
       };
     }
 
