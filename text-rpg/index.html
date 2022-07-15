@@ -59,6 +59,15 @@
         xp: 0,
         maxXp: 0,
         att: 10,
+        //화살표 함수에서는 this가 달라짐 (브라우저에서는 window)
+        attack(monster) {
+          monster.hp -= this.att;
+          this.hp -= monster.att;
+        },
+        heal(monster) {
+          this.hp += 20;
+          this.hp -= monster.att;
+        },
       };
       let moster = null;
       const monsterList = [
@@ -109,10 +118,17 @@
         e.preventDefault();
         const input = event.target['battle-input'].value;
         if (input === '1') {
+          //공격
+          hero.attach(monster);
+          monster.attack(hero);
+          $heroHp.textContent = `HP: ${hero.hp}/${hero.maxHp}`;
+          $monsterHp.textContent = `HP: ${monster.hp}/${monster.maxHp}`;
+          $message.textContent = `${hero.att}의 데미지를 주고, ${monster.att}의 데미지를 받았다.`;
         } else if (input === '2') {
         } else if (input === '3') {
         }
       });
     </script>
+    <script src="./main.js" type="module>"
   </body>
 </html>
