@@ -1,0 +1,47 @@
+<script src="../shop/lib/fx.js"></script>
+
+## range
+<script>
+  const add = (a, b) => a + b;
+  const range = (l) => {
+    let i = -1;
+    const res = [];
+    while (++i < l) {
+      res.push(i);
+    }
+    return res;
+  };
+  var list = range(3);
+  log(reduce(add, list));
+</script>
+
+## 느긋한 L.range
+<script>
+  const L = {};
+  L.range = function* (l) {
+    let i = -1;
+    const res = [];
+    while (++i < l) {
+      res.push(i);
+    }
+    return res;
+  };
+  var list = L.range(4);
+  console.log(list);
+  log(reduce(add, list));
+</script>
+
+<script>
+  function test(name, time, f) {
+    console.time(name);
+    while (time--) f();
+    console.timeEnd(name);
+  }
+  test('range', 10, () => reduce(add, range(1000000)));
+  test('L.range', 10, () => reduce(add, L.range(1000000)));
+</script>
+<img
+  width="100%"
+  alt="스크린샷 2022-08-18 오후 2 55 38"
+  src="https://user-images.githubusercontent.com/83356118/185304774-9371a113-bfb5-4a1f-bb9c-13dc1044c653.png"
+/>
