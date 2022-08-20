@@ -40,8 +40,28 @@
   test('range', 10, () => reduce(add, range(1000000)));
   test('L.range', 10, () => reduce(add, L.range(1000000)));
 </script>
+## 성능 테스트
 <img
   width="100%"
   alt="스크린샷 2022-08-18 오후 2 55 38"
   src="https://user-images.githubusercontent.com/83356118/185304774-9371a113-bfb5-4a1f-bb9c-13dc1044c653.png"
 />
+
+## take
+
+<script>
+  const take = curry((l, iter) => {
+    const res = [];
+    for (const a of iter) {
+      res.push(a);
+      if (res.length === l) return res;
+    }
+    return res;
+  });
+  console.time('');
+  go(range(1000000), take(5), reduce(add), log);
+  console.timeEnd('');
+  console.time('');
+  go(L.range(1000000), reduce(add), log);
+  console.timeEnd('');
+</script>
