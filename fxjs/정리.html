@@ -1,0 +1,62 @@
+<h2>이터러블/이터레이터 프로토콜</h2>
+<ul>
+  <li>이터러블: 이터레이터를 리턴하는 [Symbol.iterator]()를 가진 값</li>
+  <li>이터레이터: {value, done} 객체를 리턴하는 next()를 가진 값</li>
+  <li>이터러블/이터레이터 프로토콜: 이터러블을 for…of, 전개 연산자 등과 함께 동작하도록한 규약</li>
+</ul>
+<script>
+  const iterable = {
+    [Symbol.iterator]() {
+      let i = 3;
+      return {
+        next() {
+          return i === 0 ? { done: true } : { value: i--, done: false };
+        },
+      };
+    },
+  };
+  let iter = iterable[Symbol.iterator]();
+  iter.next();
+</script>
+<h3>이터레이터의 순회를 알 수 있도록 iterable 리팩토링</h3>
+<script>
+  const wellFormedIterable = {
+    [Symbol.iterator]() {
+      let i = 3;
+      return {
+        next() {
+          return i === 0 ? { done: true } : { value: i--, done: false };
+        },
+        [Symbol.iterator]() {
+          return this;
+        },
+      };
+    },
+  };
+</script>
+
+<h2>제너레이터: 이터레이터이자 이터러블을 생성하는 함수</h2>
+<script>
+  function* gen() {
+    yield 1;
+    yield 2;
+    yield 3;
+  }
+  let iter3 = gen();
+  console.log(iter.next());
+  for (const a of gen()) console.log(a);
+</script>
+
+<h2>custom reduce</h2>
+<script>
+  const reduce = (f, acc, nums) => {
+    if (!iter) {
+      iter = acc[Symbol.iterator]();
+      acc = iter.next().value;
+    }
+    for (const a of iter) {
+      acc = f(acc, a);
+    }
+    return acc;
+  };
+</script>

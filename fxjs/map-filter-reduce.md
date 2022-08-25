@@ -38,7 +38,7 @@ console.log(map((a) => a * a, gen()));
 let m = new Map();
 m.set('a', 10);
 m.set('b', 20);
-const it = m[Symbol.iterator();
+const it = m[Symbol.iterator]();
 console.log(it.next());
 ```
 
@@ -83,7 +83,7 @@ console.log(reduce(add, 0, [1,2,3,4,5]));
 const reduce = (f, acc, nums) => {
 	if(!iter){
 		iter = acc[Symbol.iterator]();
-		acc = iter.next().value)'
+		acc = iter.next().value;
 	}
 	for(const a of iter) {
 		acc = f(acc, a);
