@@ -63,3 +63,57 @@ GROUP BY는 `집계함수`와 주로 사용되는 명령어
 
 - 여러 열별로 그룹화가 가능
 - GROUP BY에 있는 열들을 SELECT에도 작성해야 원하는 분석 결과를 확인할 수 있다.
+
+## 테이블 결합
+
+키워드는 `관계`
+
+ERM (entity- relationship modelling)
+: 개체 관계 모델링
+
+### INNER JOIN
+
+두 테이블의 공통 값이 매칭되는 데이터만 결합
+
+```
+/* INNER JOIN */
+
+SELECT  *
+  FROM CUSTOMER AS A
+ INNER
+  JOIN SALES AS B
+    ON A.MEM_NO = B.MEM_NO;
+
+/* Customer 및 sales 테이블은 mem_no(회원번호) 기준으로 1:N 관계 */
+SELECT *
+  FROM CUSTOMER AS A
+ INNER
+  JOIN SALES AS B
+    ON A.MEM_NO = B.MEM_NO
+ WHERE A.MEM_NO = '1000970';
+```
+
+### LEFT JOIN
+
+두 테이블의 공통 값이 매칭되는 데이터만 결합 + 왼쪽 테이블의 매칭되는 않는 데이터는 NULL
+
+```
+ SELECT  *
+  FROM CUSTOMER AS A
+  LEFT
+  JOIN SALES AS B
+    ON A.MEM_NO = B.MEM_NO;
+```
+
+### RIGHT JOIN
+
+두 테이블의 공통 값이 매칭되는 데이터만 결합 + 왼쪽 테이블의 매칭되는 않는 데이터는 NULL
+
+```
+SELECT  *
+  FROM CUSTOMER AS A
+  RIGHT
+  JOIN SALES AS B
+    ON A.MEM_NO = B.MEM_NO
+ WHERE A.MEM_NO IS NULL;
+```
