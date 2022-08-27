@@ -107,7 +107,7 @@ SELECT *
 
 ### RIGHT JOIN
 
-두 테이블의 공통 값이 매칭되는 데이터만 결합 + 왼쪽 테이블의 매칭되는 않는 데이터는 NULL
+두 테이블의 공통 값이 매칭되는 데이터만 결합 + 오른쪽 테이블의 매칭되는 않는 데이터는 NULL
 
 ```
 SELECT  *
@@ -116,4 +116,89 @@ SELECT  *
   JOIN SALES AS B
     ON A.MEM_NO = B.MEM_NO
  WHERE A.MEM_NO IS NULL;
+```
+
+### JOIN + SELECT
+
+FROM절 + JOIN: 테이블 확인 및 결합
+WHERE절: FROM절 테이블을 특정 조건으로 필터링
+GROUP BY 절: 열 별로 그룹화
+HAVING 절: 그룹화된 새로운 테이블을 특정 조건으로 필터링
+SELECT 절: 열 선택
+ORDERY BY절: 열 정렬
+
+```
+CREATE TEMPORARY TABLE CUSTOMER_SALES_INNER_JOIN
+SELECT A.*
+	   ,B.ORDER_NO
+  FROM CUSTOMER AS A
+ INNER
+  JOIN SALES AS B
+    ON A.MEM_NO = B.MEM_NO;
+
+SELECT * FROM CUSTOMER_SALES_INNER_JOIN;
+
+SELECT *
+  FROM CUSTOMER_SALES_INNER_JOIN
+ WHERE GENDER = "MAN"
+ GROUP
+	BY ADDR
+HAVING COUNT(ORDER_NO) < 100
+ ORDER
+	BY COUNT(ORDER_NO) DESC;
+```
+
+## 서브 쿼리
+
+SELECT문 안에 또 다른 SELECT문이 있는 명령어
+
+```
+
+USE TEST;
+/* select절 서브 쿼리 */
+
+SELECT *
+	   ,(SELECT GENDER FROM CUSTOMER WHERE A.MEM_NO = MEM_NO) AS GENDER
+  FROM SALES AS A;
+
+/* FROM 명령문 안에 SELECT 명령문 */
+SELECT *
+  FROM (
+       SELECT MEM_NO
+			  ,COUNT(ORDER_NO) AS 주문횟수
+		 FROM SALES
+         GROUP
+			BY MEM_NO
+		)AS A;
+
+/*WHERE 절 서브 쿼리 */
+
+SELECT COUNT(ORDER_NO) AS 주문횟수
+  FROM SALES
+ WHERE MEM_NO IN (SELECT MEM_NO FROM CUSTOMER WHERE YEAR(JOIN_DATE) = 2019);
+
+/* WEHRE 서브 쿼리 vs 데이터 결합(JOIN) 결과 값 비교 */
+SELECT COUNT(A.ORDER_NO) AS 주문횟수
+  FROM SALES AS A
+ INNER
+  JOIN CUSTOMER AS B
+    ON A.MEM_NO = B.MEM_NO
+ WHERE YEAR(B.JOIN_DATE) = 2019;
+
+ /* 서브쿼리 + JOIN */
+CREATE TEMPORARY TABLE SALES_SUB_QUERY
+SELECT A.구매횟수
+       ,B.*
+  FROM (
+       SELECT MEM_NO
+			  ,COUNT(ORDER_NO) AS 구매횟수
+		 FROM SALES
+         GROUP
+			BY MEM_NO
+		)AS A
+ INNER
+  JOIN CUSTOMER AS B
+    ON A.MEM_NO = B.MEM_NO;
+
+SELECT * FROM SALES_SUB_QUERY;
 ```
