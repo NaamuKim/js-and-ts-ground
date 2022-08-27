@@ -102,6 +102,95 @@ DELETE
 
 ```
 
+## 데이터 제어어(DCL)
+
+데이터베이스 관리자가 특정 사용자에게 데이터 접근 권한을 부여 및 제거할 때 사용하는 명령어
+
+1. 사용자 확인: USE MYSQL
+2. 사용자 추가 및 삭제: CREATE, DROP
+3. 권한 부여 및 삭제: GRANT, REVOKE
+
+```
+USE MYSQL;
+
+SELECT  *
+  FROM  USER;
+
+CREATE USER 'TEST'@LOCALHOST IDENTIFIED BY 'TEST';
+
+SET PASSWORD FOR 'TEST'@LOCALHOST = '1234';
+
+GRANT SELECT, DELETE ON PRACTICE.회원테이블 TO 'TEST'@LOCALHOST;
+
+REVOKE DELETE ON PRACTICE.회원테이블 FROM 'TEST'@LOCALHOST;
+
+GRANT ALL ON PRACTICE.회원테이블 TO 'TEST'@LOCALHOST;
+
+REVOKE ALL ON PRACTICE.회원테이블 FROM 'TEST'@LOCALHOST;
+
+DROP USER 'TEST'@LOCALHOST;
+```
+
+## 트랜젝션 제어어(TCL)
+
+데이터 조작어 명령어 실행, 취소, 임시저장할 때 사용하는 명령어
+
+트랜잭션:
+분할할 수 없는 최소 단위이며 논리적인 작업 단위
+
+실행(COMMIT):
+모든 작업을 최종 실행
+취소(ROLLBACK):
+모든 작업을 되돌림
+임시저장:
+ROLLBACK 저장점을 지정하는 명령어
+
+```
+BEGIN;
+
+INSERT INTO 회원테이블 VALUES (1002, '장보고', '2020-01-03', 1);
+
+SELECT  * FROM 회원테이블;
+
+ROLLBACK;
+
+SELECT * FROM 회원테이블;
+
+BEGIN;
+
+INSERT INTO 회원테이블 VALUES (1002, '장보고', '2020-01-03', 1);
+
+SELECT  * FROM 회원테이블;
+
+COMMIT;
+
+SELECT * FROM 회원테이블;
+
+
+DELETE FROM 회원테이블;
+
+BEGIN;
+
+INSERT INTO 회원테이블 VALUES (1002, '장보고', '2020-01-03', 1);
+
+SAVEPOINT S1;
+
+UPDATE  회원테이블
+   SET	이름 = '이순신';
+
+SAVEPOINT S2;
+
+DELETE FROM 회원테이블;
+
+SAVEPOINT S3;
+
+SELECT  * FROM	회원테이블;
+
+ROLLBACK TO S2;
+
+COMMIT;
+```
+
 # SQL 문법
 
 ## 데이터 조회 (SELECT)
