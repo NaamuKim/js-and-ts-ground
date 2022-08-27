@@ -17,6 +17,91 @@
 - 데이터 제어어(DCL)
 - 트랜젝션 제어어(TCL)
 
+## DDL
+
+1. 테이블 생성
+2. 열 추가
+3. 열 데이터 타입 변경
+4. 테이블명 변경
+5. 테이블 삭제
+
+### 테이블
+
+테이블은 각 열마다 각 1가지 데이터 타입으로 정의되어야한다.
+
+1. PK(PRIMARY KEY)
+   중복되어 나타날 수 없는 단일 값
+2. NOT NULL
+   : NULL허용하지 않음
+
+```
+CREATE DATABASE PRACTICE;
+
+USE PRACTICE;
+
+CREATE TABLE 회원테이블 (
+회원번호 INT PRIMARY KEY,
+이름 VARCHAR(20),
+가입일자 DATE NOT NULL,
+수신동의 BIT
+);
+
+SELECT \*
+FROM 회원테이블;
+
+ALTER TABLE 회원테이블 ADD 성별 VARCHAR(2);
+
+ALTER TABLE 회원테이블 MODIFY 성별 VARCHAR(20);
+
+ALTER TABLE 회원테이블 CHANGE 성별 성 VARCHAR(2);
+
+ALTER TABLE 회원테이블 RENAME 회원정보;
+
+DROP TABLE 회원정보;
+
+SELECT \*
+FROM 회원정보;
+
+```
+
+## 데이터 조작어 (DML)
+
+1. 삽입: 제약 조건 위반, 문자 및 날짜형('')
+2. 조회: 모든 열(\*), 특정 열 이름 변경(AS)
+3. 수정: 특정조건(WHERE)
+4. 삭제: 특정조건(WHERE)
+   예제
+
+```
+INSERT INTO 회원테이블 VALUES (1001, '홍길동', '2020-01-02', 1);
+INSERT INTO 회원테이블 VALUES (1002, '이순신', '2020-01-03', 0);
+INSERT INTO 회원테이블 VALUES (1003, '장영실', '2020-01-04', 1);
+INSERT INTO 회원테이블 VALUES (1004, '유관순', '2020-01-05', 0);
+
+SELECT *
+  FROM 회원테이블;
+
+INSERT INTO 회원테이블 VALUES (1004, '장보고', '2020-01-06', 0);
+
+SELECT  회원번호,
+	   	이름 AS 성명
+  FROM  회원테이블;
+
+  USE PRACTICE;
+UPDATE  회원테이블
+   SET 수신동의 = 0;
+
+UPDATE 회원테이블
+   SET 수신동의 = 1
+ WHERE 이름 = '홍길동';
+
+
+DELETE
+  FROM 회원테이블
+ WHERE 이름 = '홍길동';
+
+```
+
 # SQL 문법
 
 ## 데이터 조회 (SELECT)
@@ -32,28 +117,29 @@ SELECT: 열 선택
 ORDEY BY: 열 정렬
 
 ```
+
 USE test;
 
-Select *
-	FROM CUSTOMER
-    WHERE GENDER = "MAN";
+Select \*
+FROM CUSTOMER
+WHERE GENDER = "MAN";
 
 SELECT ADDR
-	,COUNT(MEM_NO) AS 회원수
-	FROM customer
-    where gender = 'man'
-    GROUP
-		BY ADDR;
+,COUNT(MEM_NO) AS 회원수
+FROM customer
+where gender = 'man'
+GROUP
+BY ADDR;
 
 SELECT ADDR
-	,COUNT(MEM_NO) AS 회원수
-	FROM customer
-    where gender = 'man'
-    GROUP
-		BY ADDR
-	HAVING COUNT(MEM_NO) < 100
-    ORDER
-		BY count(mem_no) desc;
+,COUNT(MEM_NO) AS 회원수
+FROM customer
+where gender = 'man'
+GROUP
+BY ADDR
+HAVING COUNT(MEM_NO) < 100
+ORDER
+BY count(mem_no) desc;
 
 ```
 
@@ -76,21 +162,23 @@ ERM (entity- relationship modelling)
 두 테이블의 공통 값이 매칭되는 데이터만 결합
 
 ```
-/* INNER JOIN */
 
-SELECT  *
-  FROM CUSTOMER AS A
- INNER
-  JOIN SALES AS B
-    ON A.MEM_NO = B.MEM_NO;
+/_ INNER JOIN _/
 
-/* Customer 및 sales 테이블은 mem_no(회원번호) 기준으로 1:N 관계 */
-SELECT *
-  FROM CUSTOMER AS A
- INNER
-  JOIN SALES AS B
-    ON A.MEM_NO = B.MEM_NO
- WHERE A.MEM_NO = '1000970';
+SELECT \*
+FROM CUSTOMER AS A
+INNER
+JOIN SALES AS B
+ON A.MEM_NO = B.MEM_NO;
+
+/_ Customer 및 sales 테이블은 mem_no(회원번호) 기준으로 1:N 관계 _/
+SELECT \*
+FROM CUSTOMER AS A
+INNER
+JOIN SALES AS B
+ON A.MEM_NO = B.MEM_NO
+WHERE A.MEM_NO = '1000970';
+
 ```
 
 ### LEFT JOIN
@@ -98,11 +186,13 @@ SELECT *
 두 테이블의 공통 값이 매칭되는 데이터만 결합 + 왼쪽 테이블의 매칭되는 않는 데이터는 NULL
 
 ```
- SELECT  *
-  FROM CUSTOMER AS A
-  LEFT
-  JOIN SALES AS B
-    ON A.MEM_NO = B.MEM_NO;
+
+SELECT \*
+FROM CUSTOMER AS A
+LEFT
+JOIN SALES AS B
+ON A.MEM_NO = B.MEM_NO;
+
 ```
 
 ### RIGHT JOIN
@@ -110,12 +200,14 @@ SELECT *
 두 테이블의 공통 값이 매칭되는 데이터만 결합 + 오른쪽 테이블의 매칭되는 않는 데이터는 NULL
 
 ```
-SELECT  *
-  FROM CUSTOMER AS A
-  RIGHT
-  JOIN SALES AS B
-    ON A.MEM_NO = B.MEM_NO
- WHERE A.MEM_NO IS NULL;
+
+SELECT \*
+FROM CUSTOMER AS A
+RIGHT
+JOIN SALES AS B
+ON A.MEM_NO = B.MEM_NO
+WHERE A.MEM_NO IS NULL;
+
 ```
 
 ### JOIN + SELECT
@@ -128,24 +220,26 @@ SELECT 절: 열 선택
 ORDERY BY절: 열 정렬
 
 ```
+
 CREATE TEMPORARY TABLE CUSTOMER_SALES_INNER_JOIN
-SELECT A.*
-	   ,B.ORDER_NO
-  FROM CUSTOMER AS A
- INNER
-  JOIN SALES AS B
-    ON A.MEM_NO = B.MEM_NO;
+SELECT A.\*
+,B.ORDER_NO
+FROM CUSTOMER AS A
+INNER
+JOIN SALES AS B
+ON A.MEM_NO = B.MEM_NO;
 
-SELECT * FROM CUSTOMER_SALES_INNER_JOIN;
+SELECT \* FROM CUSTOMER_SALES_INNER_JOIN;
 
-SELECT *
-  FROM CUSTOMER_SALES_INNER_JOIN
- WHERE GENDER = "MAN"
- GROUP
-	BY ADDR
+SELECT \*
+FROM CUSTOMER_SALES_INNER_JOIN
+WHERE GENDER = "MAN"
+GROUP
+BY ADDR
 HAVING COUNT(ORDER_NO) < 100
- ORDER
-	BY COUNT(ORDER_NO) DESC;
+ORDER
+BY COUNT(ORDER_NO) DESC;
+
 ```
 
 ## 서브 쿼리
@@ -155,50 +249,55 @@ SELECT문 안에 또 다른 SELECT문이 있는 명령어
 ```
 
 USE TEST;
-/* select절 서브 쿼리 */
+/_ select절 서브 쿼리 _/
 
-SELECT *
-	   ,(SELECT GENDER FROM CUSTOMER WHERE A.MEM_NO = MEM_NO) AS GENDER
-  FROM SALES AS A;
+SELECT \*
+,(SELECT GENDER FROM CUSTOMER WHERE A.MEM_NO = MEM_NO) AS GENDER
+FROM SALES AS A;
 
-/* FROM 명령문 안에 SELECT 명령문 */
-SELECT *
-  FROM (
-       SELECT MEM_NO
-			  ,COUNT(ORDER_NO) AS 주문횟수
-		 FROM SALES
-         GROUP
-			BY MEM_NO
-		)AS A;
+/_ FROM 명령문 안에 SELECT 명령문 _/
+SELECT \*
+FROM (
+SELECT MEM_NO
+,COUNT(ORDER_NO) AS 주문횟수
+FROM SALES
+GROUP
+BY MEM_NO
+)AS A;
 
-/*WHERE 절 서브 쿼리 */
+/_WHERE 절 서브 쿼리 _/
 
 SELECT COUNT(ORDER_NO) AS 주문횟수
-  FROM SALES
- WHERE MEM_NO IN (SELECT MEM_NO FROM CUSTOMER WHERE YEAR(JOIN_DATE) = 2019);
+FROM SALES
+WHERE MEM_NO IN (SELECT MEM_NO FROM CUSTOMER WHERE YEAR(JOIN_DATE) = 2019);
 
-/* WEHRE 서브 쿼리 vs 데이터 결합(JOIN) 결과 값 비교 */
+/_ WEHRE 서브 쿼리 vs 데이터 결합(JOIN) 결과 값 비교 _/
 SELECT COUNT(A.ORDER_NO) AS 주문횟수
-  FROM SALES AS A
- INNER
-  JOIN CUSTOMER AS B
-    ON A.MEM_NO = B.MEM_NO
- WHERE YEAR(B.JOIN_DATE) = 2019;
+FROM SALES AS A
+INNER
+JOIN CUSTOMER AS B
+ON A.MEM_NO = B.MEM_NO
+WHERE YEAR(B.JOIN_DATE) = 2019;
 
- /* 서브쿼리 + JOIN */
+/_ 서브쿼리 + JOIN _/
 CREATE TEMPORARY TABLE SALES_SUB_QUERY
 SELECT A.구매횟수
-       ,B.*
-  FROM (
-       SELECT MEM_NO
-			  ,COUNT(ORDER_NO) AS 구매횟수
-		 FROM SALES
-         GROUP
-			BY MEM_NO
-		)AS A
- INNER
-  JOIN CUSTOMER AS B
-    ON A.MEM_NO = B.MEM_NO;
+,B.\*
+FROM (
+SELECT MEM_NO
+,COUNT(ORDER_NO) AS 구매횟수
+FROM SALES
+GROUP
+BY MEM_NO
+)AS A
+INNER
+JOIN CUSTOMER AS B
+ON A.MEM_NO = B.MEM_NO;
 
-SELECT * FROM SALES_SUB_QUERY;
+SELECT \* FROM SALES_SUB_QUERY;
+
+```
+
+```
+
 ```
