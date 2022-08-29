@@ -1,0 +1,77 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+li {
+  list-style-type: none;
+}
+
+#slideShow {
+  display: flex;
+  align-items: center;
+  width: 1200px;
+  height: 800px;
+  position: relative;
+  margin: 10px auto;
+  overflow: hidden;
+}
+
+.slides {
+  position: absolute;
+  left: 0;
+  top: 100px;
+  width: 3000px;
+  margin: 50px auto;
+  transition: left 0.5s ease-out;
+}
+
+.slides li:first-child {
+  margin-left: 100px;
+}
+
+.slides li:not(:last-child) {
+  float: left;
+  margin-right: 100px;
+}
+
+.slides li {
+  float: left;
+}
+
+.image__box {
+  width: 1000px;
+  display: flex;
+}
+
+.image__box > img {
+  padding-right: 10px;
+  width: 240px;
+  height: 500px;
+}
+
+/* 이전, 다음 화살표에 마우스 커서가 올라가 있을때 */
+#prev-btn,
+#next-btn {
+  position: absolute;
+  width: 140px;
+  height: 62px;
+  top: 50%;
+  margin-top: -31px;
+  border: 3px solid #828282;
+  color: #828282;
+  font-family: 'Noto Sans Kr', sans-serif;
+  font-weight: 700;
+  border-radius: 36.5px;
+  background: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#prev-btn {
+  left: 80px;
+}
+
+#next-btn {
+  right: 80px;
+}
