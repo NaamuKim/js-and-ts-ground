@@ -475,3 +475,69 @@ Procedure는 매개변수를 활용해, 사용자가 정의한 작업
 - IN: 매개변수를 프로시저로 전달
 - OUT: 프로시저 결과값 반환
 - INOUT: IN+OUT
+
+일반함수
+IFNULL(A,B) A가 null이면 B를 반환, 아니면 A 반환
+
+윈도우함수:
+ROWS => 차이점
+RANGE => 같은 값 가능
+
+RANK 중복 건너 뛴다. 1 1 3 4
+DENSE, RANK 건너뛰기 X 1,1,2,3
+
+계층형 질의:
+Prior 자식데이터 = 부모데이터
+같은 표현: 부모데이터 = Prior 자식데이터
+
+부모에서 자식으로 가면 순방향
+Prior
+level1 king empnumber
+level2 james mgr
+level3 scott
+Prior empno = mgr
+
+절차형 PL/SQL
+exception => 생략가능
+Procedure, trigger, user defined 차이점
+트리거: 커밋 롤백 안되고, dml
+procedure: 반드시 값이 안나오고
+userdefinedfunction: 반드시 값이 나옴
+
+데이터모델링
+업무 -> 데이터 모델화
+소프트웨어 방법론
+1 데이터 구조화(업무에만)절차지향
+2 데이터 자체, 관계
+3 객체지향(망)
+
+엔터티
+특징
+분류: 유형 개념 사건, 기 중 행
+
+속성
+Scott이란 사람은 눈이 큰가
+instance의 특성 = 속성
+분류: 기본, 설계, 파생속성
+
+도메인
+값의 범위
+데이터 유형, 크기, 제약조건
+물리 check primary key 도메인
+
+GROUP BY
+집약기능이 있고 WHERE 다음에 실행
+그룹수준
+
+JOIN
+natural join
+using
+-> alias 사용 x
+중복된 컬럼이 하나
+제일 앞에 등장
+left outer join
+a left outer join b
+= acol1 = bCol1(+)
+
+서브쿼리
+select(단일행) from(인라인뷰: 메인쿼리의 컬럼 사용 가능) where(거의 모든) groupby(x) having(거의 모든) orderby
