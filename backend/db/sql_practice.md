@@ -540,4 +540,5 @@ a left outer join b
 = acol1 = bCol1(+)
 
 서브쿼리
-select(단일행) from(인라인뷰: 메인쿼리의 컬럼 사용 가능) where(거의 모든) groupby(x) having(거의 모든) orderby
+select(단일행) from(인라인뷰: 메인쿼리의 컬럼 사용 가능) where(거의 모든) groupby(x) having(거의 모든) orderby(단일행)
+
