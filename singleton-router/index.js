@@ -5,3 +5,20 @@ document.getElementById('route-nav').addEventListener('click', (e) => {
   if (!(target instanceof HTMLAnchorElement)) return;
   e.preventDefault();
 });
+
+const $app = document.getElementById('app');
+
+const routes = [
+  [
+    '/',
+    () => {
+      new Main($app);
+    },
+  ],
+  [
+    '/mypage',
+    () => {
+      new MyPage($app);
+    },
+  ],
+];
