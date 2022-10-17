@@ -16,7 +16,7 @@ const webAPI = {
 
 const syncEnv = {
   callStack: [],
-  callWebAPI: (fn) => {
+  callWebAPI: () => {
     while (true) {
       if (callStack.length) {
         callStack.forEach((fn) => {
